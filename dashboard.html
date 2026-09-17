@@ -2192,25 +2192,68 @@
         const auth = getAuth(appInstance);
         const db = getFirestore(appInstance);
 
-        const curriculumData = [
-            { week: 1, day: 1, title: "The AI Studio Launchpad", desc: "Foundations & Environment. Intro to Generative AI (LLM, Multimodal). Hands-on: Setting up AI Studio and running first prompt-to-text.", type: "Foundation" },
-            { week: 1, day: 2, title: "Mastering Prompting & Research AI", desc: "Advanced Prompt Engineering. System instructions, persona, and context. Deep dive into analysis and summarization.", type: "Strategy" },
-            { week: 2, day: 3, title: "The Integration Bridge", desc: "AI-First Code Generation & Debugging. Prompting for minimal web apps (HTML/Tailwind/JS). The 'AI Debugging' workflow.", type: "Engineering" },
-            { week: 2, day: 4, title: "Project 1: Smart Q&A Chatbot", desc: "Core Conversational AI. Iterative prompting for UI/UX. Building a functional single-turn chat interface.", type: "Build" },
-            { week: 3, day: 5, title: "Project 2: Structured Data Labs", desc: "Guaranteeing Structured Output with responseSchema. Generating JSON nutritional plans from raw text.", type: "Logic" },
-            { week: 3, day: 6, title: "Project 2.5: Voice Responder", desc: "Multimodal Integration (TTS). Integrating Text-to-Speech APIs and complex audio utility code.", type: "Audio" },
-            { week: 4, day: 7, title: "Project 3: Visionary AI", desc: "Text-to-Image Generation. Creative prompting for visual styles using Imagen model APIs. Dynamic image display.", type: "Vision" },
-            { week: 4, day: 8, title: "Project 4: The Mixboard Canvas", desc: "UI/UX Prompting Challenge. Generating diverse layouts for creative web apps using Tailwind class prompts.", type: "Design" },
-            { week: 5, day: 9, title: "Project 5: Multimodal Experiments", desc: "Advanced TextFX. Tool for converting content into creative formats (tweets, poems). Rapid style shifting.", type: "Experimental" },
-            { week: 5, day: 10, title: "Big Project 1: Data Persistence", desc: "AI E-Commerce Store (Part 1). Firebase initialization and Firestore CRUD for multi-session data storage.", type: "Database" },
-            { week: 6, day: 11, title: "Big Project 1: Intelligence Layer", desc: "AI E-Commerce Store (Part 2). Generating rich product descriptions and titles from simple stored data.", type: "Intelligence" },
-            { week: 6, day: 12, title: "Big Project 2: Grounded Content Studio", desc: "Research & Factual Content. Using Google Search Grounding for accurate, cited reports and verifiable content.", type: "Research" },
-            { week: 7, day: 13, title: "Big Project 3: AI Game Logic", desc: "Strategic Decision-Making. Building a game where the LLM acts as a sophisticated opponent. Complex strategic logic.", type: "Game Dev" },
-            { week: 7, day: 14, title: "Project 6: AI Tooling Assistant", desc: "Developer Utility. Advanced prompting for reusable code blocks, clean templates, and complex layouts.", type: "Tooling" },
-            { week: 8, day: 15, title: "Capstone: Feature Integration", desc: "Project Synthesis. Combining multiple integration patterns (e.g., Grounding + Structured Data) into a polished app.", type: "Capstone" },
-            { week: 9, day: 16, title: "Assignment Guidance & Review", desc: "Assessment Preparation. Reviewing core concepts. Detailed guide for Capstone submission and final quiz.", type: "Review" },
-            { week: 9, day: 17, title: "Graduation & Showcase", desc: "Final Ceremony. Certificates, Digital Badges, and distribution of exclusive alumni gifts and libraries.", type: "Ceremony" }
+        
+        const masterclassModules = [
+            {
+                id: 1,
+                number: "01",
+                title: "AI Foundations & The AI Studio Launchpad",
+                badge: "Days 01 - 02",
+                desc: "LLM Architectures, Google AI Studio environment, system instructions, temperature, context caching & prompt engineering strategies.",
+                days: [1, 2]
+            },
+            {
+                id: 2,
+                number: "02",
+                title: "AI Code Generation & Integration Bridge",
+                badge: "Days 03 - 04",
+                desc: "AI-first frontend & backend code synthesis, debugging pipelines, and building conversational intelligent chatbots.",
+                days: [3, 4]
+            },
+            {
+                id: 3,
+                number: "03",
+                title: "Structured Data, Schemas & Voice Labs",
+                badge: "Days 05 - 06",
+                desc: "Deterministic JSON outputs via responseSchema, multimodal integration, Text-to-Speech (TTS) pipelines & audio processors.",
+                days: [5, 6]
+            },
+            {
+                id: 4,
+                number: "04",
+                title: "Multimodal Vision & Creative Studio",
+                badge: "Days 07 - 09",
+                desc: "Text-to-Image synthesis with Imagen APIs, dynamic canvas rendering, and creative multimodal content generation.",
+                days: [7, 8, 9]
+            },
+            {
+                id: 5,
+                number: "05",
+                title: "Database Persistence & Intelligence Layer",
+                badge: "Days 10 - 11",
+                desc: "Production Firestore CRUD, state management, session-based storage, and intelligent AI product automation layers.",
+                days: [10, 11]
+            },
+            {
+                id: 6,
+                number: "06",
+                title: "Grounded Research & Autonomous Game Logic",
+                badge: "Days 12 - 14",
+                desc: "Search Grounding with real-time web verification, cited factual reporting, strategic LLM decision engines, and developer tooling.",
+                days: [12, 13, 14]
+            },
+            {
+                id: 7,
+                number: "07",
+                title: "Full-Stack Capstone Synthesis & Masterclass Credentials",
+                badge: "Days 15 - 17",
+                desc: "End-to-end multi-agent architectural synthesis, capstone project grading, final verification, and global diploma credential issuance.",
+                days: [15, 16, 17]
+            }
         ];
+
+        const curriculumData = masterclassModules;
+
 
         window.app = {
 
@@ -3009,78 +3052,122 @@
 
             renderPlaylist: (filterText = '') => {
                 const container = document.getElementById('playlistContainer');
-                if(!container) return;
+                if (!container) return;
 
                 if (!app.lessonsList || app.lessonsList.length === 0) {
                     container.innerHTML = '<p class="text-xs text-slate-400 text-center py-8">No lessons published yet.</p>';
                     return;
                 }
 
-                const filtered = app.lessonsList.filter(l => 
-                    !filterText || 
-                    l.title.toLowerCase().includes(filterText.toLowerCase()) || 
-                    l.desc.toLowerCase().includes(filterText.toLowerCase()) ||
-                    `day ${l.day}`.includes(filterText.toLowerCase())
-                );
+                const filterLower = filterText.toLowerCase().trim();
 
-                if (filtered.length === 0) {
-                    container.innerHTML = '<p class="text-xs text-slate-400 text-center py-8">No matching lessons found.</p>';
-                    return;
-                }
+                // Group lessons into our 7 Masterclass Modules
+                let html = '';
 
-                const totalPages = Math.ceil(filtered.length / app.playlistPageSize);
-                if (app.playlistPage > totalPages) app.playlistPage = totalPages;
-                if (app.playlistPage < 1) app.playlistPage = 1;
+                masterclassModules.forEach((mod) => {
+                    // Find all lessons belonging to this module's days
+                    const modLessons = app.lessonsList.filter(l => mod.days.includes(l.day));
+                    
+                    // Filter matching
+                    const filteredModLessons = modLessons.filter(l => 
+                        !filterLower ||
+                        l.title.toLowerCase().includes(filterLower) ||
+                        (l.desc && l.desc.toLowerCase().includes(filterLower)) ||
+                        `day ${l.day}`.includes(filterLower) ||
+                        mod.title.toLowerCase().includes(filterLower)
+                    );
 
-                const startIndex = (app.playlistPage - 1) * app.playlistPageSize;
-                const paged = filtered.slice(startIndex, startIndex + app.playlistPageSize);
+                    if (filterLower && filteredModLessons.length === 0) return;
 
-                const listHtml = paged.map(l => {
-                    const index = app.lessonsList.findIndex(x => x.day === l.day);
-                    const isCompleted = app.completedLessons.includes(l.day);
-                    const isCurrent = app.currentLessonIndex === index;
+                    const lessonsToRender = filterLower ? filteredModLessons : modLessons;
+                    const totalInModule = modLessons.length;
+                    const completedInModule = modLessons.filter(l => app.completedLessons.includes(l.day)).length;
+                    const isModuleComplete = totalInModule > 0 && completedInModule === totalInModule;
 
-                    let statusBadge = isCompleted 
-                        ? '<span class="text-emerald-700 text-[10px] bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-bold flex items-center gap-1"><i class="fa-solid fa-check"></i> Done</span>'
-                        : (isCurrent 
-                            ? '<span class="text-orange-700 text-[10px] bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full font-bold flex items-center gap-1 animate-pulse"><i class="fa-solid fa-play text-[8px]"></i> Playing</span>'
-                            : `<span class="text-slate-400 text-[11px] font-mono font-medium">${l.duration}</span>`);
+                    // Check if current playing lesson belongs to this module
+                    const isCurrentModule = app.lessonsList[app.currentLessonIndex] && mod.days.includes(app.lessonsList[app.currentLessonIndex].day);
+                    const isAccordionOpen = isCurrentModule || filterLower !== '' || mod.id === 1;
 
-                    let cardClass = isCurrent 
-                        ? 'border-orange-500 bg-orange-50/40 shadow-sm ring-1 ring-orange-500/20' 
-                        : (isCompleted ? 'border-slate-200 bg-slate-50/50 hover:bg-white hover:border-slate-300' : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm');
-
-                    let numberBadgeClass = isCurrent
-                        ? 'bg-orange-500 text-white font-bold'
-                        : (isCompleted ? 'bg-emerald-500 text-white font-bold' : 'bg-slate-100 text-slate-700 font-bold');
-
-                    return `
-                        <div onclick="app.playLesson(${index})" class="p-3 rounded-2xl border transition-all cursor-pointer group flex items-start justify-between gap-3 ${cardClass}">
-                            <div class="flex items-start gap-3 overflow-hidden">
-                                <div class="w-8 h-8 rounded-xl flex items-center justify-center text-xs font-mono flex-shrink-0 mt-0.5 ${numberBadgeClass}">
-                                    ${l.day < 10 ? '0' + l.day : l.day}
+                    html += `
+                        <div class="border border-slate-200/90 rounded-2xl bg-white overflow-hidden shadow-2xs transition-all duration-200 mb-3 group/mod">
+                            <!-- Module Accordion Header -->
+                            <button type="button" onclick="app.toggleModuleAccordion(${mod.id})" class="w-full p-3.5 bg-gradient-to-r ${isCurrentModule ? 'from-orange-50/80 via-white to-orange-50/30 border-b border-orange-200/80' : 'from-slate-50/90 to-white hover:bg-slate-100/70 border-b border-slate-100'} flex items-center justify-between gap-3 text-left transition select-none" id="mod-head-${mod.id}">
+                                <div class="flex items-center gap-2.5 min-w-0">
+                                    <div class="w-8 h-8 rounded-xl flex items-center justify-center text-xs font-mono font-bold shrink-0 ${isModuleComplete ? 'bg-emerald-500 text-white shadow-xs' : (isCurrentModule ? 'bg-orange-500 text-white shadow-xs' : 'bg-slate-900 text-white')}">
+                                        ${mod.number}
+                                    </div>
+                                    <div class="min-w-0">
+                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                            <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${isCurrentModule ? 'bg-orange-100 text-orange-800' : 'bg-slate-100 text-slate-600'}">${mod.badge}</span>
+                                            ${isModuleComplete ? '<span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200"><i class="fa-solid fa-check"></i> Mastered</span>' : ''}
+                                        </div>
+                                        <h5 class="text-xs sm:text-sm font-bold text-slate-900 truncate mt-0.5 ${isCurrentModule ? 'text-orange-600' : ''}">${mod.title}</h5>
+                                    </div>
                                 </div>
-                                <div class="overflow-hidden">
-                                    <h5 class="text-xs md:text-sm font-bold truncate ${isCurrent ? 'text-orange-600' : 'text-slate-800 group-hover:text-orange-600 transition'}">${l.title}</h5>
-                                    <p class="text-[11px] text-slate-500 truncate mt-0.5">${l.type} • ${l.duration}</p>
+                                <div class="flex items-center gap-2 shrink-0">
+                                    <span class="text-[10px] font-mono font-bold text-slate-500 hidden sm:inline">${completedInModule}/${totalInModule}</span>
+                                    <div id="mod-arrow-${mod.id}" class="w-6 h-6 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 transition-transform duration-200 ${isAccordionOpen ? 'rotate-180' : ''}">
+                                        <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="flex-shrink-0">
-                                ${statusBadge}
+                            </button>
+
+                            <!-- Module Lessons List Body -->
+                            <div id="mod-body-${mod.id}" class="${isAccordionOpen ? '' : 'hidden'} p-2.5 space-y-2 bg-slate-50/50">
+                                ${lessonsToRender.length === 0 ? `
+                                    <div class="text-center py-4 text-xs text-slate-400">Lessons being prepared for this module.</div>
+                                ` : lessonsToRender.map(l => {
+                                    const index = app.lessonsList.findIndex(x => x.day === l.day);
+                                    const isCompleted = app.completedLessons.includes(l.day);
+                                    const isCurrent = app.currentLessonIndex === index;
+
+                                    let statusBadge = isCompleted 
+                                        ? '<span class="text-emerald-700 text-[10px] bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-bold flex items-center gap-1"><i class="fa-solid fa-check"></i> Done</span>'
+                                        : (isCurrent 
+                                            ? '<span class="text-orange-700 text-[10px] bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full font-bold flex items-center gap-1 animate-pulse"><i class="fa-solid fa-play text-[8px]"></i> Playing</span>'
+                                            : `<span class="text-slate-400 text-[10px] font-mono font-medium">${l.duration || '45 Mins'}</span>`);
+
+                                    let cardClass = isCurrent 
+                                        ? 'border-orange-500 bg-orange-50/60 shadow-xs ring-1 ring-orange-500/20' 
+                                        : (isCompleted ? 'border-slate-200 bg-white hover:border-slate-300' : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-2xs');
+
+                                    return `
+                                        <div onclick="app.playLesson(${index})" class="p-2.5 rounded-xl border transition-all cursor-pointer group flex items-center justify-between gap-3 ${cardClass}">
+                                            <div class="flex items-center gap-2.5 overflow-hidden">
+                                                <div class="w-6 h-6 rounded-lg flex items-center justify-center text-[11px] font-mono font-bold shrink-0 ${isCurrent ? 'bg-orange-500 text-white' : (isCompleted ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-600')}">
+                                                    ${l.day < 10 ? '0' + l.day : l.day}
+                                                </div>
+                                                <div class="overflow-hidden min-w-0">
+                                                    <h6 class="text-xs font-bold truncate ${isCurrent ? 'text-orange-600' : 'text-slate-800 group-hover:text-orange-600 transition'}">${l.title}</h6>
+                                                    <p class="text-[10px] text-slate-400 truncate">${l.type || 'Masterclass'} • ${l.duration || '45 Mins'}</p>
+                                                </div>
+                                            </div>
+                                            <div class="shrink-0">
+                                                ${statusBadge}
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
                             </div>
                         </div>
                     `;
-                }).join('');
+                });
 
-                const paginationHtml = totalPages > 1 ? `
-                    <div class="pt-3 flex items-center justify-between border-t border-slate-100 text-xs text-slate-500 mt-2">
-                        <button onclick="app.setPlaylistPage(${app.playlistPage - 1})" ${app.playlistPage === 1 ? 'disabled class="opacity-40 cursor-not-allowed px-3 py-1.5 rounded-xl bg-slate-100 font-medium"' : 'class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold transition cursor-pointer"'}><i class="fa-solid fa-chevron-left mr-1"></i> Prev</button>
-                        <span class="font-medium text-slate-600">Page <span class="text-slate-900 font-bold">${app.playlistPage}</span> of ${totalPages}</span>
-                        <button onclick="app.setPlaylistPage(${app.playlistPage + 1})" ${app.playlistPage === totalPages ? 'disabled class="opacity-40 cursor-not-allowed px-3 py-1.5 rounded-xl bg-slate-100 font-medium"' : 'class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold transition cursor-pointer"'}">Next <i class="fa-solid fa-chevron-right ml-1"></i></button>
-                    </div>
-                ` : '';
+                container.innerHTML = html;
+            },
 
-                container.innerHTML = `<div class="space-y-2">${listHtml}</div>${paginationHtml}`;
+            toggleModuleAccordion: (modId) => {
+                const body = document.getElementById(`mod-body-${modId}`);
+                const arrow = document.getElementById(`mod-arrow-${modId}`);
+                if (!body) return;
+                const isHidden = body.classList.contains('hidden');
+                if (isHidden) {
+                    body.classList.remove('hidden');
+                    if (arrow) arrow.classList.add('rotate-180');
+                } else {
+                    body.classList.add('hidden');
+                    if (arrow) arrow.classList.remove('rotate-180');
+                }
             },
 
             filterLessons: (val) => {
