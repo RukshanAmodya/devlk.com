@@ -2176,29 +2176,103 @@
             </div>
         </div>
 
-        <!-- Live Support Chat Widget -->
+        <!-- Live Support Chat Widget (Luxury Edition matching Mobile Reference) -->
         <div id="chat-widget" class="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-[90]">
-            <button onclick="app.toggleChat()" class="bg-gradient-to-r from-orange-500 to-amber-500 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-2xl flex items-center justify-center text-white text-lg sm:text-xl hover:scale-110 transition border-2 border-white relative active:scale-95">
-                <i class="fa-solid fa-headset"></i>
-                <span class="absolute top-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white"></span>
+            <!-- Floating Launcher Pill -->
+            <button onclick="app.toggleChat()" class="bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-2xl flex items-center justify-center text-white text-lg sm:text-xl hover:scale-110 transition border-2 border-white/30 relative active:scale-95 shadow-orange-500/30">
+                <i class="fa-solid fa-headset" id="chatLauncherIcon"></i>
+                <span class="absolute top-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-[#030014] animate-pulse"></span>
             </button>
-            <div id="chat-window" class="hidden absolute bottom-16 right-0 w-80 md:w-96 h-[480px] bg-[#0d0f1a] border border-white/[0.08] rounded-[2rem] shadow-2xl flex flex-col overflow-hidden">
-                <div class="bg-[#0b0d18] text-white p-4 flex justify-between items-center">
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-8 h-8 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center text-xs">
-                            <i class="fa-solid fa-user-tie"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-white text-sm">Instructor Support</h4>
-                            <span class="text-[10px] text-emerald-400 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Online</span>
-                        </div>
+
+            <!-- Chat Dialog Window -->
+            <div id="chat-window" class="hidden absolute bottom-16 right-0 w-[90vw] max-w-[390px] sm:w-[400px] h-[580px] max-h-[85vh] bg-[#0b0e1a]/95 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                
+                <!-- Chat Header matching Reference UI -->
+                <div class="p-5 pb-4 bg-gradient-to-b from-[#121528] to-[#0d1020] border-b border-white/[0.06] relative text-center shrink-0">
+                    <!-- Close Button -->
+                    <button onclick="app.toggleChat()" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-white/5 hover:bg-white/15 text-slate-400 hover:text-white flex items-center justify-center transition" title="Close Chat">
+                        <i class="fa-solid fa-xmark text-xs"></i>
+                    </button>
+
+                    <!-- Centered Avatar with Status Dot -->
+                    <div class="relative w-16 h-16 mx-auto mb-2.5">
+                        <img src="assets/logo.webp" alt="Instructor Rukshan" class="w-16 h-16 rounded-full object-cover border-2 border-orange-500/50 p-1 bg-[#15192c] shadow-lg">
+                        <span class="absolute bottom-0 right-0 w-4 h-4 bg-emerald-500 border-2 border-[#0b0e1a] rounded-full shadow-sm" title="Online"></span>
                     </div>
-                    <button onclick="app.toggleChat()" class="text-slate-400 hover:text-white p-1"><i class="fa-solid fa-xmark"></i></button>
+
+                    <!-- Name & Subtitle -->
+                    <h4 class="font-bold text-base text-white font-heading flex items-center justify-center gap-1.5">
+                        <span>Rukshan Amodya</span>
+                        <i class="fa-solid fa-circle-check text-orange-400 text-xs" title="Verified Masterclass Instructor"></i>
+                    </h4>
+                    <p class="text-[11px] font-mono text-slate-400 mt-0.5">@rukshan • Lead AI Architect</p>
+
+                    <!-- Quick Action Buttons Row -->
+                    <div class="flex items-center justify-center gap-3 mt-3.5">
+                        <a href="https://wa.me/94700000000" target="_blank" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-slate-300 hover:text-white flex items-center justify-center transition shadow-xs" title="WhatsApp Direct Audio Call">
+                            <i class="fa-solid fa-phone text-xs"></i>
+                        </a>
+                        <a href="https://meet.google.com" target="_blank" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-slate-300 hover:text-white flex items-center justify-center transition shadow-xs" title="Join Google Meet Live Room">
+                            <i class="fa-solid fa-video text-xs"></i>
+                        </a>
+                        <button onclick="app.sendQuickMeetingLink()" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-slate-300 hover:text-white flex items-center justify-center transition shadow-xs" title="Request 1-on-1 Code Review">
+                            <i class="fa-solid fa-ellipsis text-xs"></i>
+                        </button>
+                    </div>
                 </div>
-                <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-[#080912] custom-scroll text-sm"></div>
-                <form id="chat-form" class="p-3 bg-[#0d0f1a] border-t border-white/[0.06] flex gap-2">
-                    <input type="text" id="chat-input" placeholder="Type your question..." class="flex-1 bg-[#080912] border border-white/[0.08] rounded-full px-4 py-2 text-xs sm:text-sm focus:outline-none focus:border-orange-500 text-white">
-                    <button type="submit" class="w-9 h-9 rounded-full bg-orange-600 flex items-center justify-center text-white hover:bg-orange-700 transition"><i class="fa-solid fa-paper-plane text-xs"></i></button>
+
+                <!-- Date Divider -->
+                <div class="flex items-center justify-center py-2 bg-[#080a14] border-b border-white/[0.04]">
+                    <span class="text-[10px] font-mono font-bold text-slate-400 bg-white/5 px-3 py-0.5 rounded-full border border-white/5">Today</span>
+                </div>
+
+                <!-- Messages Container -->
+                <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-[#080a14] custom-scroll text-xs">
+                    <div class="text-[10px] text-center text-slate-500 font-mono py-2">Connected to secure student support channel</div>
+                </div>
+
+                <!-- Pending Attachment Preview Banner -->
+                <div id="chatAttachmentPreview" class="hidden px-4 py-2 bg-[#121528] border-t border-white/10 flex items-center justify-between text-xs">
+                    <div class="flex items-center gap-2 overflow-hidden">
+                        <i class="fa-solid fa-paperclip text-orange-400 shrink-0"></i>
+                        <span id="chatAttachmentName" class="text-white font-mono truncate text-[11px]">filename.png</span>
+                    </div>
+                    <button type="button" onclick="app.removeChatAttachment()" class="text-slate-400 hover:text-rose-400 p-1">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Emoji Picker Popup Tray -->
+                <div id="chatEmojiTray" class="hidden px-3 py-2 bg-[#12162a] border-t border-white/10 flex items-center gap-2 text-base">
+                    <button type="button" onclick="app.insertChatEmoji('👍')" class="hover:scale-125 transition">👍</button>
+                    <button type="button" onclick="app.insertChatEmoji('🔥')" class="hover:scale-125 transition">🔥</button>
+                    <button type="button" onclick="app.insertChatEmoji('🚀')" class="hover:scale-125 transition">🚀</button>
+                    <button type="button" onclick="app.insertChatEmoji('💡')" class="hover:scale-125 transition">💡</button>
+                    <button type="button" onclick="app.insertChatEmoji('👏')" class="hover:scale-125 transition">👏</button>
+                    <button type="button" onclick="app.insertChatEmoji('❤️')" class="hover:scale-125 transition">❤️</button>
+                    <button type="button" onclick="app.insertChatEmoji('🎉')" class="hover:scale-125 transition">🎉</button>
+                </div>
+
+                <!-- Bottom Input Form Bar -->
+                <form id="chat-form" class="p-3 bg-[#0d1020] border-t border-white/[0.06] flex items-center gap-2 relative">
+                    <!-- File Attachment Button -->
+                    <label for="chatFileInput" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 text-slate-300 hover:text-orange-400 flex items-center justify-center transition cursor-pointer shrink-0" title="Attach Image / PDF / Code snippet">
+                        <i class="fa-solid fa-paperclip text-xs"></i>
+                    </label>
+                    <input type="file" id="chatFileInput" class="hidden" accept="image/*,application/pdf,.zip,.py,.js,.json" onchange="app.handleChatFileSelect(event)">
+
+                    <!-- Message Text Input -->
+                    <input type="text" id="chat-input" placeholder="Write a message..." autocomplete="off" class="flex-1 bg-[#14172a] border border-white/10 rounded-full px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition">
+
+                    <!-- Emoji Tray Toggle -->
+                    <button type="button" onclick="app.toggleChatEmojiTray()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 text-slate-300 hover:text-amber-400 flex items-center justify-center transition shrink-0" title="Emoji">
+                        <i class="fa-regular fa-face-smile text-xs"></i>
+                    </button>
+
+                    <!-- Send Button -->
+                    <button type="submit" id="chatSendBtn" class="w-9 h-9 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 flex items-center justify-center text-white transition shrink-0 shadow-md shadow-orange-500/20 active:scale-90">
+                        <i class="fa-solid fa-paper-plane text-xs"></i>
+                    </button>
                 </form>
             </div>
         </div>
@@ -5742,30 +5816,184 @@
                 }
             },
 
-            // --- SUPPORT CHAT ---
-            initChat: () => {
-                const chatContainer = document.getElementById('chat-messages'); 
-                const chatId = app.userData.uid;
-                onSnapshot(query(collection(db, `chats/${chatId}/messages`), orderBy("timestamp", "asc")), (snap) => {
-                    chatContainer.innerHTML = '<div class="text-[11px] text-center text-slate-400 mb-2">Support Session Connected</div>';
-                    snap.forEach(doc => { 
-                        const m = doc.data(); 
-                        const isMe = m.sender !== 'admin'; 
-                        chatContainer.innerHTML += `<div class="${isMe ? 'ml-auto bg-[#0b0d18] text-white' : 'mr-auto bg-[#0d0f1a] border border-white/[0.08] text-slate-100'} max-w-[80%] rounded-2xl px-3.5 py-2.5 text-xs mb-2 shadow-sm">${m.text}</div>`; 
-                    });
-                    chatContainer.scrollTop = chatContainer.scrollHeight;
-                });
-                document.getElementById('chat-form').onsubmit = async (e) => { 
-                    e.preventDefault(); 
-                    const input = document.getElementById('chat-input'); 
-                    if(!input.value.trim()) return; 
-                    await addDoc(collection(db, `chats/${chatId}/messages`), { text: input.value, sender: 'student', timestamp: serverTimestamp() }); 
-                    await updateDoc(doc(db, "users", chatId), { lastMessageAt: serverTimestamp() }); 
-                    input.value = ''; 
+            // --- SUPPORT CHAT ENGINE (WITH CLOUDFLARE R2 ATTACHMENTS & RICH MESSAGES) ---
+            pendingChatFile: null,
+
+            handleChatFileSelect: async (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (!file) return;
+                
+                if (file.size > 10 * 1024 * 1024) {
+                    return app.toast("File size must be under 10MB");
+                }
+
+                app.pendingChatFile = file;
+                const previewBanner = document.getElementById('chatAttachmentPreview');
+                const nameEl = document.getElementById('chatAttachmentName');
+                if (previewBanner && nameEl) {
+                    nameEl.innerText = file.name;
+                    previewBanner.classList.remove('hidden');
                 }
             },
 
-            toggleChat: () => document.getElementById('chat-window').classList.toggle('hidden')
+            removeChatAttachment: () => {
+                app.pendingChatFile = null;
+                const fileInput = document.getElementById('chatFileInput');
+                if (fileInput) fileInput.value = '';
+                const previewBanner = document.getElementById('chatAttachmentPreview');
+                if (previewBanner) previewBanner.classList.add('hidden');
+            },
+
+            toggleChatEmojiTray: () => {
+                const tray = document.getElementById('chatEmojiTray');
+                if (tray) tray.classList.toggle('hidden');
+            },
+
+            insertChatEmoji: (emoji) => {
+                const input = document.getElementById('chat-input');
+                if (input) {
+                    input.value += emoji;
+                    input.focus();
+                }
+                const tray = document.getElementById('chatEmojiTray');
+                if (tray) tray.classList.add('hidden');
+            },
+
+            sendQuickMeetingLink: async () => {
+                const chatId = app.userData ? app.userData.uid : (app.user ? app.user.uid : null);
+                if (!chatId) return;
+
+                await addDoc(collection(db, `chats/${chatId}/messages`), {
+                    text: "Requested 1-on-1 Code Review & Architecture Guidance with Instructor.",
+                    type: "action_request",
+                    sender: 'student',
+                    timestamp: serverTimestamp()
+                });
+                await updateDoc(doc(db, "users", chatId), { lastMessageAt: serverTimestamp() });
+                app.toast("Instructor notified for 1-on-1 session!");
+            },
+
+            initChat: () => {
+                const chatContainer = document.getElementById('chat-messages'); 
+                const chatId = app.userData ? app.userData.uid : (app.user ? app.user.uid : null);
+                if (!chatId) return;
+
+                onSnapshot(query(collection(db, `chats/${chatId}/messages`), orderBy("timestamp", "asc")), (snap) => {
+                    if (snap.empty) {
+                        chatContainer.innerHTML = `
+                            <div class="text-[10px] text-center text-slate-500 font-mono py-2">Connected to secure student support channel</div>
+                            <div class="mr-auto bg-[#14172a] border border-white/[0.08] text-slate-200 max-w-[85%] rounded-3xl rounded-tl-sm p-3.5 space-y-1.5 shadow-sm">
+                                <p class="text-xs leading-relaxed">Hi! Welcome to the AI & Full-Stack Architecture Masterclass. Feel free to ask any questions or share screenshots of your code here.</p>
+                                <span class="text-[9px] text-slate-400 font-mono block text-right">Instructor Bot</span>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    let html = '<div class="text-[10px] text-center text-slate-500 font-mono py-1">Support Session Connected</div>';
+                    snap.forEach(doc => { 
+                        const m = doc.data(); 
+                        const isMe = m.sender !== 'admin'; 
+                        const timeStr = m.timestamp ? (m.timestamp.toDate ? m.timestamp.toDate().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '') : '';
+
+                        let fileAttachmentHtml = '';
+                        if (m.fileUrl) {
+                            const isImg = m.fileType && m.fileType.startsWith('image');
+                            if (isImg) {
+                                fileAttachmentHtml = `
+                                    <div class="my-1.5">
+                                        <img src="${m.fileUrl}" alt="Attachment" class="rounded-2xl max-h-48 object-cover border border-white/10 cursor-pointer" onclick="window.open('${m.fileUrl}', '_blank')">
+                                    </div>
+                                `;
+                            } else {
+                                fileAttachmentHtml = `
+                                    <a href="${m.fileUrl}" target="_blank" class="flex items-center gap-2 p-2 rounded-xl bg-black/40 border border-white/10 text-[11px] font-mono hover:bg-black/60 transition my-1">
+                                        <i class="fa-solid fa-file text-orange-400"></i>
+                                        <span class="truncate flex-1 font-bold">${m.fileName || 'Attachment'}</span>
+                                        <i class="fa-solid fa-arrow-down text-[9px]"></i>
+                                    </a>
+                                `;
+                            }
+                        }
+
+                        if (isMe) {
+                            html += `
+                                <div class="ml-auto max-w-[85%] flex flex-col items-end">
+                                    <div class="bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-3xl rounded-tr-sm p-3.5 shadow-md shadow-orange-500/15 space-y-1 text-xs leading-relaxed">
+                                        ${m.text ? `<div>${m.text}</div>` : ''}
+                                        ${fileAttachmentHtml}
+                                        <div class="text-[9px] text-orange-100 font-mono text-right pt-0.5">${timeStr}</div>
+                                    </div>
+                                </div>
+                            `;
+                        } else {
+                            html += `
+                                <div class="mr-auto max-w-[85%] flex flex-col items-start">
+                                    <div class="bg-[#14172a] border border-white/[0.08] text-slate-200 rounded-3xl rounded-tl-sm p-3.5 shadow-sm space-y-1 text-xs leading-relaxed">
+                                        ${m.text ? `<div>${m.text}</div>` : ''}
+                                        ${fileAttachmentHtml}
+                                        <div class="text-[9px] text-slate-400 font-mono text-right pt-0.5">${timeStr}</div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    });
+
+                    chatContainer.innerHTML = html;
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                });
+
+                document.getElementById('chat-form').onsubmit = async (e) => { 
+                    e.preventDefault(); 
+                    const input = document.getElementById('chat-input'); 
+                    const text = input.value.trim();
+                    const file = app.pendingChatFile;
+
+                    if (!text && !file) return;
+
+                    const sendBtn = document.getElementById('chatSendBtn');
+                    const origBtnHtml = sendBtn.innerHTML;
+                    sendBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin text-xs"></i>';
+                    sendBtn.disabled = true;
+
+                    try {
+                        let fileUrl = '';
+                        let fileName = '';
+                        let fileType = '';
+
+                        if (file) {
+                            fileUrl = await app.uploadSlipToR2(file);
+                            fileName = file.name;
+                            fileType = file.type;
+                        }
+
+                        await addDoc(collection(db, `chats/${chatId}/messages`), { 
+                            text: text, 
+                            fileUrl: fileUrl,
+                            fileName: fileName,
+                            fileType: fileType,
+                            sender: 'student', 
+                            timestamp: serverTimestamp() 
+                        }); 
+                        await updateDoc(doc(db, "users", chatId), { lastMessageAt: serverTimestamp() }); 
+
+                        input.value = ''; 
+                        app.removeChatAttachment();
+                    } catch(err) {
+                        console.error("Chat send error:", err);
+                        app.toast("Failed to send message: " + err.message);
+                    } finally {
+                        sendBtn.innerHTML = origBtnHtml;
+                        sendBtn.disabled = false;
+                    }
+                }
+            },
+
+            toggleChat: () => {
+                const win = document.getElementById('chat-window');
+                if (!win) return;
+                win.classList.toggle('hidden');
+            }
         };
 
         
