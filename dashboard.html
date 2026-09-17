@@ -684,7 +684,7 @@
 
 
     <!-- ================= MAIN LMS CLASSROOM VIEW ================= -->
-    <div id="main-lms-view" class="h-screen flex flex-col hidden bg-[#F8FAFC] text-slate-900 font-sans overflow-hidden">
+    <div id="main-lms-view" class="h-screen flex flex-col hidden bg-[#030014] text-white font-sans overflow-hidden">
         
         <!-- Mobile Drawer Overlay -->
         <div id="mobile-drawer-overlay" onclick="app.closeMobileDrawer()" class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-40 hidden md:hidden transition-opacity duration-300"></div>
@@ -782,17 +782,17 @@
         </div>
 
         <!-- Top Dashboard Header Bar (Ultra-Luxury Glassmorphic Header) -->
-        <header class="h-16 border-b border-slate-200/80 bg-white/80 backdrop-blur-2xl px-4 sm:px-8 flex items-center justify-between z-30 shrink-0 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.03)] transition-all duration-300">
+        <header class="h-16 border-b border-white/[0.08] bg-[#0b0c10]/85 backdrop-blur-2xl px-4 sm:px-8 flex items-center justify-between z-30 shrink-0 shadow-[0_4px_30px_rgba(0,0,0,0.5)] transition-all duration-300">
             
             <!-- Left: Sidebar Trigger & Brand -->
             <div class="flex items-center gap-3.5">
                 <!-- Mobile Drawer Toggle -->
-                <button type="button" onclick="app.toggleMobileDrawer()" class="md:hidden w-10 h-10 rounded-2xl border border-slate-200 bg-slate-50/80 hover:bg-slate-100 flex items-center justify-center text-slate-700 transition active:scale-95 shadow-2xs">
+                <button type="button" onclick="app.toggleMobileDrawer()" class="md:hidden w-10 h-10 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-300 hover:text-white transition active:scale-95 shadow-2xs">
                     <i class="fa-solid fa-bars-staggered text-sm"></i>
                 </button>
 
                 <!-- Desktop Sidebar Collapse/Expand Toggle -->
-                <button type="button" onclick="app.toggleDesktopSidebar()" id="desktopSidebarToggleBtn" class="hidden md:flex w-10 h-10 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 items-center justify-center transition-all duration-200 active:scale-95 shadow-2xs group hover:border-orange-300" title="Toggle Sidebar">
+                <button type="button" onclick="app.toggleDesktopSidebar()" id="desktopSidebarToggleBtn" class="hidden md:flex w-10 h-10 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white items-center justify-center transition-all duration-200 active:scale-95 shadow-2xs group hover:border-orange-500/40" title="Toggle Sidebar">
                     <i class="fa-solid fa-bars-staggered text-sm text-slate-600 group-hover:text-orange-600 transition duration-200" id="sidebarToggleIcon"></i>
                 </button>
 
@@ -803,40 +803,40 @@
                         <img src="assets/logo.webp" alt="Questra LMS" class="h-8 w-auto object-contain relative z-10 group-hover:scale-105 transition duration-300">
                     </div>
                     <div class="flex items-center">
-                        <span class="font-heading font-black text-lg tracking-tight text-slate-950">QUESTRA</span>
+                        <span class="font-heading font-black text-lg tracking-tight text-white">QUESTRA</span>
                         <span class="text-orange-600 text-[10px] font-mono font-bold bg-orange-500/10 border border-orange-500/20 px-2 py-0.5 rounded-full ml-1.5 shadow-2xs">LMS STUDIO</span>
                     </div>
                 </a>
             </div>
 
             <!-- Center: Masterclass Status Pill -->
-            <div class="hidden lg:flex items-center gap-3 px-4 py-1.5 rounded-full bg-slate-100/80 border border-slate-200/90 text-xs font-semibold text-slate-700 backdrop-blur-md shadow-2xs hover:border-slate-300 transition duration-200">
+            <div class="hidden lg:flex items-center gap-3 px-4 py-1.5 rounded-full bg-[#141624] border border-white/10 text-xs font-semibold text-slate-300 backdrop-blur-md shadow-2xs hover:border-white/20 transition duration-200">
                 <span class="relative flex h-2 w-2">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
-                <span class="font-medium text-slate-800">AI & Full-Stack Architecture</span>
+                <span class="font-medium text-slate-200">AI & Full-Stack Architecture</span>
                 <span class="w-1 h-1 rounded-full bg-slate-300"></span>
-                <span class="text-[10px] text-orange-600 font-bold uppercase font-mono tracking-wider bg-orange-50 px-2 py-0.5 rounded-full border border-orange-200/60">Cohort 2026</span>
+                <span class="text-[10px] text-orange-400 font-bold uppercase font-mono tracking-wider bg-orange-500/10 px-2 py-0.5 rounded-full border border-orange-500/30">Cohort 2026</span>
             </div>
 
             <!-- Right: Navigation Links & Student Identity Capsule -->
             <div class="flex items-center gap-3">
                 
                 <!-- Main Website Link -->
-                <a href="index.html" class="hidden sm:inline-flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100/80 hover:bg-slate-200/70 px-3.5 py-2 rounded-full border border-slate-200/80 transition shadow-2xs hover:scale-[1.02] active:scale-95">
+                <a href="index.html" class="hidden sm:inline-flex items-center gap-2 text-xs font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 px-3.5 py-2 rounded-full border border-white/10 transition shadow-2xs hover:scale-[1.02] active:scale-95">
                     <i class="fa-solid fa-arrow-left text-[10px] text-slate-400"></i> Main Website
                 </a>
 
                 <!-- Certificate Verification Link -->
-                <a href="Certfication.html" target="_blank" class="hidden xl:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-orange-600 px-3 py-2 rounded-full hover:bg-orange-50 transition border border-transparent hover:border-orange-200/60">
+                <a href="Certfication.html" target="_blank" class="hidden xl:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-orange-400 px-3 py-2 rounded-full hover:bg-orange-500/10 transition border border-transparent hover:border-orange-500/30">
                     <i class="fa-solid fa-shield-check text-orange-500 text-xs"></i>
                     <span>Verify Credentials</span>
                 </a>
 
                 <!-- Student Identity Pill & Settings -->
-                <div class="flex items-center gap-2.5 pl-2 sm:pl-3 border-l border-slate-200">
-                    <div onclick="app.dashView('profile')" class="flex items-center gap-2.5 p-1 sm:pr-3 rounded-full hover:bg-slate-100/90 border border-transparent hover:border-slate-200 transition duration-200 cursor-pointer group" title="Account Settings & Profile">
+                <div class="flex items-center gap-2.5 pl-2 sm:pl-3 border-l border-white/10">
+                    <div onclick="app.dashView('profile')" class="flex items-center gap-2.5 p-1 sm:pr-3 rounded-full hover:bg-white/5 border border-transparent hover:border-white/10 transition duration-200 cursor-pointer group" title="Account Settings & Profile">
                         <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-orange-500 via-amber-500 to-orange-600 flex items-center justify-center font-bold text-xs text-white shadow-sm border-2 border-white group-hover:scale-105 transition duration-200 relative" id="topNavAvatar">
                             U
                             <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white rounded-full"></span>
@@ -848,7 +848,7 @@
                     </div>
 
                     <!-- Sign Out Button -->
-                    <button onclick="app.logout()" title="Sign Out Session" class="w-9 h-9 rounded-full bg-slate-100/90 hover:bg-rose-50 text-slate-500 hover:text-rose-600 flex items-center justify-center transition duration-200 border border-slate-200/80 active:scale-95 shadow-2xs">
+                    <button onclick="app.logout()" title="Sign Out Session" class="w-9 h-9 rounded-full bg-white/5 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 flex items-center justify-center transition duration-200 border border-white/10 active:scale-95 shadow-2xs">
                         <i class="fa-solid fa-right-from-bracket text-xs"></i>
                     </button>
                 </div>
@@ -1005,7 +1005,7 @@
             </div>
 
             <!-- Main Content Area -->
-            <main class="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto custom-scroll relative bg-slate-50/70 pb-24 md:pb-8">
+            <main class="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto custom-scroll relative bg-[#030014]/60 pb-24 md:pb-8">
                 
                 <!-- ================= VIEW 1: OVERVIEW (STUDENT HUB) ================= -->
                 <div id="view-overview" class="dash-view max-w-7xl mx-auto space-y-8">
@@ -1044,11 +1044,11 @@
                     </div>
                     
                     <!-- Announcement Banner -->
-                    <div id="user-announcement" class="hidden bg-white border-l-4 border-orange-500 p-6 rounded-3xl flex items-start gap-4 shadow-sm border border-slate-200/90">
+                    <div id="user-announcement" class="hidden bg-[#0e101c]/90 border-l-4 border-orange-500 p-6 rounded-3xl flex items-start gap-4 shadow-xl border border-white/10 backdrop-blur-md">
                         <div class="bg-orange-100 text-orange-600 p-3.5 rounded-2xl flex-shrink-0 shadow-2xs"><i class="fa-solid fa-bullhorn fa-lg"></i></div>
                         <div>
-                            <h4 class="font-bold text-slate-900 text-base font-heading">Academy Notice</h4>
-                            <p class="text-slate-600 text-sm mt-1 leading-relaxed" id="announcement-text">Loading announcement...</p>
+                            <h4 class="font-bold text-white text-base font-heading">Academy Notice</h4>
+                            <p class="text-slate-300 text-sm mt-1 leading-relaxed" id="announcement-text">Loading announcement...</p>
                         </div>
                     </div>
 
@@ -1056,25 +1056,25 @@
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
                         
                         <!-- Hero Next Lesson Card (Span 7 cols on lg, balanced height) -->
-                        <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-[2.25rem] border border-slate-200/90 shadow-sm flex flex-col justify-between group hover:shadow-md hover:border-orange-200 transition duration-300 relative overflow-hidden">
+                        <div class="lg:col-span-7 bg-[#0d0f1a]/90 backdrop-blur-xl p-6 sm:p-8 rounded-[2.25rem] border border-white/[0.08] shadow-2xl flex flex-col justify-between group hover:shadow-orange-500/10 hover:border-orange-500/30 transition duration-300 relative overflow-hidden">
                             <div class="absolute -right-12 -top-12 w-48 h-48 bg-orange-500/5 rounded-full blur-2xl pointer-events-none"></div>
                             
                             <div>
                                 <div class="flex items-center justify-between mb-4">
-                                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 border border-orange-200/80 text-orange-700 text-xs font-bold uppercase tracking-wider font-mono" id="resumeLessonBadge">
+                                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-400 text-xs font-bold uppercase tracking-wider font-mono" id="resumeLessonBadge">
                                         <i class="fa-solid fa-forward-step text-orange-600"></i> Next Up In Curriculum
                                     </div>
                                     <span class="text-xs font-mono text-slate-400 font-semibold" id="resumeLessonMeta"><i class="fa-solid fa-clock mr-1"></i> On-Demand</span>
                                 </div>
-                                <h3 class="text-xl sm:text-2xl lg:text-3xl font-black text-slate-950 mb-2.5 font-heading tracking-tight" id="resumeLessonTitle">Day 01: The AI Studio Launchpad</h3>
-                                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed line-clamp-3 mb-6 font-normal" id="resumeLessonDesc">Foundations & Environment. Intro to Generative AI & hands-on prompt setup.</p>
+                                <h3 class="text-xl sm:text-2xl lg:text-3xl font-black text-white mb-2.5 font-heading tracking-tight" id="resumeLessonTitle">Day 01: The AI Studio Launchpad</h3>
+                                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed line-clamp-3 mb-6 font-normal" id="resumeLessonDesc">Foundations & Environment. Intro to Generative AI & hands-on prompt setup.</p>
                             </div>
 
-                            <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-100">
-                                <button onclick="app.resumeNextLesson()" class="bg-slate-900 hover:bg-orange-600 text-white px-6 py-3 rounded-full font-bold transition flex items-center gap-2.5 shadow-md shadow-slate-900/10 text-xs sm:text-sm active:scale-95">
+                            <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/[0.08]">
+                                <button onclick="app.resumeNextLesson()" class="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-6 py-3 rounded-full font-bold transition flex items-center gap-2.5 shadow-lg shadow-orange-500/25 text-xs sm:text-sm active:scale-95">
                                     <i class="fa-solid fa-play text-xs text-orange-400"></i> <span id="resumeBtnText">Start Day 01</span>
                                 </button>
-                                <div class="flex items-center gap-2 text-xs font-semibold text-slate-500">
+                                <div class="flex items-center gap-2 text-xs font-semibold text-slate-400">
                                     <i class="fa-solid fa-circle-check text-emerald-500"></i> 100% HD Masterclass
                                 </div>
                             </div>
@@ -1115,57 +1115,57 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                         
                         <!-- Card 1: Classroom -->
-                        <div onclick="app.dashView('lessons')" class="bg-white p-6 rounded-[2rem] border border-slate-200/90 hover:border-orange-400 shadow-sm hover:shadow-md transition cursor-pointer group hover:-translate-y-1 duration-200 flex flex-col justify-between">
+                        <div onclick="app.dashView('lessons')" class="bg-[#0d0f1a]/90 backdrop-blur-xl p-6 rounded-[2rem] border border-white/[0.08] hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/10 transition cursor-pointer group hover:-translate-y-1 duration-200 flex flex-col justify-between">
                             <div class="flex items-start justify-between gap-3 mb-4">
-                                <div class="w-12 h-12 rounded-2xl bg-orange-50 border border-orange-200 text-orange-600 flex items-center justify-center text-xl group-hover:scale-110 transition shadow-2xs">
+                                <div class="w-12 h-12 rounded-2xl bg-orange-500/10 border border-orange-500/20 text-orange-400 flex items-center justify-center text-xl group-hover:scale-110 transition shadow-2xs">
                                     <i class="fa-solid fa-clapperboard"></i>
                                 </div>
                                 <span class="text-slate-400 group-hover:text-orange-600 transition"><i class="fa-solid fa-arrow-right text-xs"></i></span>
                             </div>
                             <div>
-                                <h4 class="font-bold text-slate-900 text-base font-heading">Classroom Stream</h4>
+                                <h4 class="font-bold text-white text-base font-heading">Classroom Stream</h4>
                                 <p class="text-xs text-slate-500 mt-1 font-medium leading-relaxed">Watch high-definition lectures & code breakdowns</p>
                             </div>
                         </div>
 
                         <!-- Card 2: Code & Notes -->
-                        <div onclick="app.dashView('notes')" class="bg-white p-6 rounded-[2rem] border border-slate-200/90 hover:border-blue-400 shadow-sm hover:shadow-md transition cursor-pointer group hover:-translate-y-1 duration-200 flex flex-col justify-between">
+                        <div onclick="app.dashView('notes')" class="bg-[#0d0f1a]/90 backdrop-blur-xl p-6 rounded-[2rem] border border-white/[0.08] hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 transition cursor-pointer group hover:-translate-y-1 duration-200 flex flex-col justify-between">
                             <div class="flex items-start justify-between gap-3 mb-4">
-                                <div class="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center text-xl group-hover:scale-110 transition shadow-2xs">
+                                <div class="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-xl group-hover:scale-110 transition shadow-2xs">
                                     <i class="fa-solid fa-code"></i>
                                 </div>
                                 <span class="text-slate-400 group-hover:text-blue-600 transition"><i class="fa-solid fa-arrow-right text-xs"></i></span>
                             </div>
                             <div>
-                                <h4 class="font-bold text-slate-900 text-base font-heading">Code & Resources</h4>
+                                <h4 class="font-bold text-white text-base font-heading">Code & Resources</h4>
                                 <p class="text-xs text-slate-500 mt-1 font-medium leading-relaxed">GitHub repositories, PDF slides & architectural specs</p>
                             </div>
                         </div>
 
                         <!-- Card 3: Module Quizzes -->
-                        <div onclick="app.dashView('quizzes')" class="bg-white p-6 rounded-[2rem] border border-slate-200/90 hover:border-purple-400 shadow-sm hover:shadow-md transition cursor-pointer group hover:-translate-y-1 duration-200 flex flex-col justify-between">
+                        <div onclick="app.dashView('quizzes')" class="bg-[#0d0f1a]/90 backdrop-blur-xl p-6 rounded-[2rem] border border-white/[0.08] hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-500/10 transition cursor-pointer group hover:-translate-y-1 duration-200 flex flex-col justify-between">
                             <div class="flex items-start justify-between gap-3 mb-4">
-                                <div class="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-200 text-purple-600 flex items-center justify-center text-xl group-hover:scale-110 transition shadow-2xs">
+                                <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center text-xl group-hover:scale-110 transition shadow-2xs">
                                     <i class="fa-solid fa-brain"></i>
                                 </div>
                                 <span class="text-slate-400 group-hover:text-purple-600 transition"><i class="fa-solid fa-arrow-right text-xs"></i></span>
                             </div>
                             <div>
-                                <h4 class="font-bold text-slate-900 text-base font-heading">Module Quizzes</h4>
+                                <h4 class="font-bold text-white text-base font-heading">Module Quizzes</h4>
                                 <p class="text-xs text-slate-500 mt-1 font-medium leading-relaxed">Assess your conceptual and technical readiness</p>
                             </div>
                         </div>
 
                         <!-- Card 4: Certifications -->
-                        <div onclick="app.dashView('certificates')" class="bg-white p-6 rounded-[2rem] border border-slate-200/90 hover:border-emerald-400 shadow-sm hover:shadow-md transition cursor-pointer group hover:-translate-y-1 duration-200 flex flex-col justify-between">
+                        <div onclick="app.dashView('certificates')" class="bg-[#0d0f1a]/90 backdrop-blur-xl p-6 rounded-[2rem] border border-white/[0.08] hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/10 transition cursor-pointer group hover:-translate-y-1 duration-200 flex flex-col justify-between">
                             <div class="flex items-start justify-between gap-3 mb-4">
-                                <div class="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center text-xl group-hover:scale-110 transition shadow-2xs">
+                                <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl group-hover:scale-110 transition shadow-2xs">
                                     <i class="fa-solid fa-award"></i>
                                 </div>
                                 <span class="text-slate-400 group-hover:text-emerald-600 transition"><i class="fa-solid fa-arrow-right text-xs"></i></span>
                             </div>
                             <div>
-                                <h4 class="font-bold text-slate-900 text-base font-heading">Certifications</h4>
+                                <h4 class="font-bold text-white text-base font-heading">Certifications</h4>
                                 <p class="text-xs text-slate-500 mt-1 font-medium leading-relaxed">Official graduation diploma with QR validation</p>
                             </div>
                         </div>
@@ -1346,7 +1346,7 @@
                             </div>
 
                             <!-- Tabbed Workspace Under Player -->
-                            <div class="bg-white rounded-[2rem] p-6 sm:p-8 border border-slate-200/80 shadow-sm" id="lesson-tabs-section">
+                            <div class="bg-[#0b0c10]/95 rounded-[2rem] p-6 sm:p-8 border border-white/[0.08] shadow-2xl backdrop-blur-xl" id="lesson-tabs-section">
                                 
                                 <!-- Video Completion Celebration Banner -->
                                 <div id="lessonCompletionBanner" class="hidden mb-6 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-orange-500/10 via-amber-500/10 to-emerald-500/10 border border-orange-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -1370,7 +1370,7 @@
                                 </div>
 
                                 <!-- Tabs Navigation -->
-                                <div class="flex flex-wrap gap-2 border-b border-slate-100 pb-4 mb-6 text-xs sm:text-sm font-bold">
+                                <div class="flex flex-wrap gap-2 border-b border-white/[0.08] pb-4 mb-6 text-xs sm:text-sm font-bold">
                                     <button onclick="app.switchPlayerTab('notes')" class="player-tab-btn px-4 py-2.5 rounded-xl bg-slate-900 text-white transition shadow-xs flex items-center gap-1.5" id="tab-btn-notes">
                                         <i class="fa-solid fa-file-lines text-orange-400"></i> Lesson Notes
                                     </button>
@@ -1399,7 +1399,7 @@
                                 <div id="player-tab-notes" class="player-tab-content space-y-4">
                                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
                                         <div>
-                                            <h4 class="text-xl font-bold text-slate-950 font-heading" id="tabLessonHeadline">Module Overview</h4>
+                                            <h4 class="text-xl font-bold text-white font-heading" id="tabLessonHeadline">Module Overview</h4>
                                             <p class="text-xs text-slate-500 mt-0.5">Comprehensive lecture guide, code samples & architectural notes</p>
                                         </div>
                                     </div>
@@ -1412,7 +1412,7 @@
                                 <div id="player-tab-resources" class="player-tab-content hidden space-y-4">
                                     <div class="flex items-center justify-between pb-2 border-b border-slate-100">
                                         <div>
-                                            <h4 class="text-xl font-bold text-slate-950 font-heading">Downloadable Materials & Attachments</h4>
+                                            <h4 class="text-xl font-bold text-white font-heading">Downloadable Materials & Attachments</h4>
                                             <p class="text-xs text-slate-500 mt-0.5">Direct PDF slides, visual diagrams, code repos, and starter kits</p>
                                         </div>
                                     </div>
@@ -1460,15 +1460,15 @@
                                 <!-- Tab 5: My Notepad -->
                                 <div id="player-tab-notepad" class="player-tab-content hidden space-y-4">
                                     <div class="flex justify-between items-center">
-                                        <h4 class="text-xl font-bold text-slate-950 font-heading">Personal Study Notepad</h4>
+                                        <h4 class="text-xl font-bold text-white font-heading">Personal Study Notepad</h4>
                                         <span class="text-xs text-emerald-700 font-mono font-bold" id="noteSaveStatus"><i class="fa-solid fa-circle-check"></i> Auto-saved locally</span>
                                     </div>
-                                    <textarea id="studentLessonNotes" rows="8" oninput="app.saveStudentNote()" class="w-full p-4 rounded-2xl text-sm font-mono leading-relaxed bg-slate-50 border border-slate-200 focus:bg-white focus:border-orange-500 outline-none transition" placeholder="Type your personal insights, timestamps, or code snippets for this lesson here..."></textarea>
+                                    <textarea id="studentLessonNotes" rows="8" oninput="app.saveStudentNote()" class="w-full p-4 rounded-2xl text-sm font-mono leading-relaxed bg-[#060810] border border-white/10 text-white focus:border-orange-500 outline-none transition placeholder-slate-500" placeholder="Type your personal insights, timestamps, or code snippets for this lesson here..."></textarea>
                                 </div>
 
                                 <!-- Tab 6: Q&A / Ask Mentor -->
                                 <div id="player-tab-qa" class="player-tab-content hidden space-y-4">
-                                    <h4 class="text-xl font-bold text-slate-950 font-heading">Got Questions about this lesson?</h4>
+                                    <h4 class="text-xl font-bold text-white font-heading">Got Questions about this lesson?</h4>
                                     <p class="text-sm text-slate-600">Reach out directly to lead instructor Mr. Rukshan Amodya via student support.</p>
                                     <button onclick="app.toggleChat()" class="bg-slate-950 hover:bg-black text-white px-6 py-3 rounded-full font-bold text-sm transition flex items-center gap-2">
                                         <i class="fa-solid fa-headset text-orange-400"></i> Open Live Support Chat
@@ -1479,20 +1479,20 @@
 
                         <!-- Right: Course Syllabus Playlist Drawer (4 Cols) -->
                         <div class="xl:col-span-4">
-                            <div class="bg-white rounded-[2rem] p-6 border border-slate-200/80 shadow-sm sticky top-20 max-h-[85vh] flex flex-col">
+                            <div class="bg-[#0b0c10]/95 rounded-[2rem] p-6 border border-white/[0.08] shadow-2xl sticky top-20 max-h-[85vh] flex flex-col backdrop-blur-xl">
                                 <div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-100">
                                     <div>
-                                        <h3 class="font-bold text-lg text-slate-950 font-heading">Course Syllabus</h3>
+                                        <h3 class="font-bold text-lg text-white font-heading">Course Syllabus</h3>
                                         <p class="text-xs text-slate-500 mt-0.5" id="playlistStatsText">17 Modules • Self-Paced</p>
                                     </div>
-                                    <span class="text-xs font-bold text-orange-800 bg-orange-100/70 border border-orange-200 px-3 py-1 rounded-full" id="playlistProgressBadge">0% Done</span>
+                                    <span class="text-xs font-bold text-orange-400 bg-orange-500/10 border border-orange-500/30 px-3 py-1 rounded-full font-mono" id="playlistProgressBadge">0% Done</span>
                                 </div>
 
                                 <!-- Search / Filter Input -->
                                 <div class="mb-4">
                                     <div class="relative">
                                         <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                                        <input type="text" id="lessonSearchInput" oninput="app.filterLessons(this.value)" placeholder="Search modules & topics..." class="w-full pl-10 pr-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 focus:bg-white focus:border-orange-500 outline-none transition font-medium">
+                                        <input type="text" id="lessonSearchInput" oninput="app.filterLessons(this.value)" placeholder="Search modules & topics..." class="w-full pl-10 pr-4 py-2.5 rounded-xl text-xs bg-[#141624] border border-white/10 text-white placeholder-slate-400 focus:border-orange-500 outline-none transition font-medium">
                                     </div>
                                 </div>
 
@@ -1555,7 +1555,7 @@
                     </div>
 
                     <!-- Project Submission Form -->
-                    <div id="project-submission-form" class="bg-white p-8 rounded-[2rem] border border-slate-200/80 shadow-sm max-w-3xl">
+                    <div id="project-submission-form" class="bg-[#0d0f1a]/95 rounded-[2rem] border border-white/[0.08] shadow-2xl p-8 max-w-3xl backdrop-blur-xl">
                         <h3 class="text-xl font-bold mb-4 font-heading text-slate-950">Submit Your Masterpiece</h3>
                         <form id="projectForm" class="space-y-4">
                             <div>
@@ -1579,9 +1579,9 @@
                         <h2 class="text-3xl font-bold font-heading text-slate-950">Financials & Installment Tracker</h2>
                         <p class="text-slate-600 text-sm mt-1">Review your tuition status, submitted bank receipts, and installment milestones.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-[2rem] overflow-x-auto border border-slate-200/80 shadow-sm">
+                    <div class="bg-[#0d0f1a]/95 p-6 rounded-[2rem] overflow-x-auto border border-white/[0.08] shadow-2xl backdrop-blur-xl">
                         <table class="w-full text-left border-collapse">
-                            <thead class="text-xs uppercase bg-slate-50 text-slate-600 font-bold">
+                            <thead class="text-xs uppercase bg-[#141624] text-slate-300 font-bold border-b border-white/[0.08]">
                                 <tr>
                                     <th class="p-4 rounded-tl-xl">Description</th>
                                     <th class="p-4">Amount</th>
@@ -1597,7 +1597,7 @@
 
                 <!-- ================= VIEW 7: CERTIFICATIONS ================= -->
                 <div id="view-certificates" class="dash-view hidden max-w-7xl mx-auto space-y-6">
-                    <div class="bg-white p-8 rounded-[2rem] border border-slate-200/80 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div class="bg-[#0d0f1a]/95 p-8 rounded-[2rem] border border-white/[0.08] shadow-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 backdrop-blur-xl">
                         <div>
                             <h2 class="text-3xl font-bold font-heading text-slate-950">My Certifications</h2>
                             <p class="text-slate-600 text-sm mt-1">View, download, and verify your earned academic and professional credentials.</p>
@@ -1661,7 +1661,7 @@
                     </div>
 
                     <!-- Coursera-Grade Legal Name & Certificate Anti-Fraud Shield -->
-                    <div class="bg-white rounded-[2rem] border border-slate-200/80 shadow-sm overflow-hidden">
+                    <div class="bg-[#0d0f1a]/95 rounded-[2rem] border border-white/[0.08] shadow-2xl overflow-hidden backdrop-blur-xl">
                         <div class="p-6 sm:p-8 bg-gradient-to-r from-amber-500/5 via-orange-500/5 to-transparent border-b border-slate-100 flex items-start gap-4">
                             <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 flex items-center justify-center text-xl flex-shrink-0">
                                 <i class="fa-solid fa-stamp"></i>
@@ -1715,7 +1715,7 @@
                     </div>
 
                     <!-- Personal Information & Academic Record Form -->
-                    <div class="bg-white rounded-[2rem] border border-slate-200/80 shadow-sm p-6 sm:p-8">
+                    <div class="bg-[#0d0f1a]/95 rounded-[2rem] border border-white/[0.08] shadow-2xl p-6 sm:p-8 backdrop-blur-xl">
                         <div class="flex items-center justify-between pb-6 border-b border-slate-100 mb-6">
                             <div>
                                 <h3 class="text-xl font-bold font-heading text-slate-950">Personal Information & Records</h3>
@@ -1914,7 +1914,7 @@
 
         <!-- Pay 2nd Installment Modal -->
         <div id="payModal" class="fixed inset-0 z-[100] bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-            <div class="bg-white p-8 rounded-[2rem] max-w-md w-full border border-slate-200 shadow-2xl">
+            <div class="bg-[#0d0f1a] p-8 rounded-[2rem] max-w-md w-full border border-white/10 shadow-2xl text-white backdrop-blur-2xl">
                 <h3 class="text-2xl font-bold mb-2 font-heading text-slate-950">2nd Installment Payment</h3>
                 <p class="text-sm text-slate-600 mb-6">Upload transfer slip for Rs. 2,000 to Commercial Bank.</p>
                 <div class="bg-slate-50 p-4 rounded-2xl mb-6 text-sm font-mono text-center border border-slate-200 text-slate-800">Acc: 8026363734 (Horana)</div>
@@ -1928,7 +1928,7 @@
 
         <!-- Interactive Quiz Modal -->
         <div id="quizModal" class="fixed inset-0 z-[100] bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-            <div class="w-full max-w-3xl bg-white rounded-[2rem] overflow-hidden border border-slate-200 shadow-2xl flex flex-col max-h-[90vh]">
+            <div class="w-full max-w-3xl bg-[#0d0f1a] rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl flex flex-col max-h-[90vh] text-white backdrop-blur-2xl">
                 <div class="p-6 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
                     <div>
                         <h3 id="quizModalTitle" class="font-bold text-xl text-slate-950 font-heading">Quiz</h3>
