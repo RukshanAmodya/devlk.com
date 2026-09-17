@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qualificates | Authenticate Excellence</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#030014',
+                        primary: '#F97316', // Orange
+                        secondary: '#1E1B2E',
+                        accent: '#F97316',
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons & Animation -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        body {
+            background-color: #030014;
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .glass-high {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* Blobs */
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: float 10s infinite ease-in-out;
+        }
+        .blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #4f46e5; animation-delay: 0s; }
+        .blob-2 { bottom: -10%; right: -10%; width: 600px; height: 600px; background: #F97316; animation-delay: 2s; }
+        .blob-3 { top: 40%; left: 40%; width: 400px; height: 400px; background: #9333ea; opacity: 0.4; animation-delay: 4s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #030014; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #F97316; }
+
+        .hidden-page { display: none !important; }
+        
+        /* Inputs */
+        .input-field {
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: white;
+            transition: all 0.3s;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #F97316;
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.2);
+        }
+        
+        /* Table Styles */
+        .checkbox-custom {
+            accent-color: #F97316;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen">
+
+    <!-- Background Ambience -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass border-b-0 border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="router('home')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-orange-400 flex items-center justify-center shadow-lg shadow-orange-500/20">
+                    <i data-lucide="shield-check" class="text-white w-6 h-6"></i>
+                </div>
+                <span class="font-display font-bold text-2xl tracking-tight">Qualificates<span class="text-primary">.</span></span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <button onclick="router('home')" class="text-sm font-medium text-gray-300 hover:text-white transition">Home</button>
+                <div id="nav-auth-buttons" class="flex items-center gap-4">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="pt-24 pb-12 px-4 min-h-screen relative z-10">
+
+        <!-- PAGE: HOME (Landing & Verification) -->
+        <div id="page-home" class="page-view max-w-7xl mx-auto">
+            <div class="flex flex-col items-center justify-center min-h-[80vh] text-center">
+                
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 animate-fade-in-down">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <span class="text-xs uppercase tracking-widest font-semibold text-gray-400">Secure Verification System</span>
+                </div>
+
+                <h1 class="font-display text-6xl md:text-8xl font-bold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-500">
+                    Authenticate <br />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">Excellence</span>
+                </h1>
+
+                <p class="text-lg text-gray-400 max-w-2xl mb-12 font-light">
+                    The decentralized standard for academic and professional credential issuance. Verify certificates instantly with our secure ledger.
+                </p>
+
+                <!-- Search Bar -->
+                <div class="w-full max-w-2xl relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-orange-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                    <div class="relative flex items-center glass-high rounded-xl p-2">
+                        <i data-lucide="search" class="ml-4 text-gray-400 w-6 h-6"></i>
+                        <input type="text" id="verify-input" placeholder="Enter Certificate ID (e.g. CERT-XYZ-123)" 
+                            class="w-full bg-transparent border-none text-white px-4 py-4 focus:outline-none text-lg font-mono placeholder-gray-500">
+                        <button onclick="handleVerify()" class="bg-primary hover:bg-orange-700 text-white px-8 py-3 rounded-lg font-semibold transition-all shadow-lg shadow-orange-500/25 flex items-center gap-2">
+                            Verify <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-24 w-full max-w-5xl">
+                    <div class="glass p-6 rounded-2xl text-center">
+                        <h3 class="text-4xl font-bold text-white mb-1">10k+</h3>
+                        <p class="text-gray-500 text-sm uppercase tracking-wide">Certificates Issued</p>
+                    </div>
+                    <div class="glass p-6 rounded-2xl text-center">
+                        <h3 class="text-4xl font-bold text-white mb-1">99.9%</h3>
+                        <p class="text-gray-500 text-sm uppercase tracking-wide">Uptime Reliability</p>
+                    </div>
+                    <div class="glass p-6 rounded-2xl text-center">
+                        <h3 class="text-4xl font-bold text-white mb-1">500+</h3>
+                        <p class="text-gray-500 text-sm uppercase tracking-wide">Institutions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: ADMIN DASHBOARD -->
+        <div id="page-admin" class="page-view hidden-page max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="glass rounded-2xl p-6 sticky top-28">
+                        <div class="flex items-center gap-3 mb-8 pb-6 border-b border-white/10">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center font-bold text-xl">A</div>
+                            <div>
+                                <h3 class="font-bold">Admin Panel</h3>
+                                <p class="text-xs text-gray-400">Manage Credentials</p>
+                            </div>
+                        </div>
+                        <nav class="space-y-2">
+                            <button onclick="adminSwitchTab('issue')" id="tab-btn-issue" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/20 text-primary border border-primary/20 transition">
+                                <i data-lucide="plus-circle" class="w-5 h-5"></i> Issue Certificate
+                            </button>
+                            <button onclick="adminSwitchTab('manage')" id="tab-btn-manage" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition">
+                                <i data-lucide="list" class="w-5 h-5"></i> Manage Records
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Main Admin Content -->
+                <div class="lg:col-span-3 space-y-6">
+                    
+                    <!-- TAB: ISSUE (BULK UPGRADE) -->
+                    <div id="admin-tab-issue" class="glass rounded-2xl p-8">
+                        <div class="mb-8 border-b border-white/10 pb-6">
+                            <h2 class="text-2xl font-bold font-display mb-2">Issue New Credentials</h2>
+                            <p class="text-gray-400 text-sm">Select students and define course details to issue certificates in bulk.</p>
+                        </div>
+
+                        <!-- Course Details (Applied to All) -->
+                        <div class="mb-8">
+                            <label class="block text-xs uppercase tracking-wider text-primary mb-2 font-bold">Certification Details</label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" id="bulk-course-title" class="input-field" placeholder="Course Title (e.g. Advanced Quantum Computing)">
+                                <div class="flex items-center gap-3 px-4 rounded-lg bg-white/5 border border-white/10">
+                                    <input type="checkbox" id="bulk-locked" class="checkbox-custom">
+                                    <label for="bulk-locked" class="text-sm text-gray-300 cursor-pointer select-none">Issue as Locked (Admin Review)</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Student Selection Table -->
+                        <div>
+                            <div class="flex flex-col md:flex-row justify-between items-end md:items-center mb-4 gap-4">
+                                <label class="block text-xs uppercase tracking-wider text-gray-400 font-bold">Select Students</label>
+                                <div class="flex gap-2">
+                                    <button onclick="addManualStudentRow()" class="text-xs bg-primary/20 text-primary hover:bg-primary/30 px-3 py-1.5 rounded transition font-bold flex items-center gap-1">
+                                        <i data-lucide="plus" class="w-3 h-3"></i> Add Manual Student
+                                    </button>
+                                    <button onclick="bulkSelectAll(true)" class="text-xs bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded transition">Select All</button>
+                                    <button onclick="bulkSelectAll(false)" class="text-xs bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded transition">Deselect All</button>
+                                </div>
+                            </div>
+
+                            <div class="overflow-x-auto rounded-lg border border-white/10 bg-black/20 max-h-[400px] overflow-y-auto">
+                                <table class="w-full text-left text-sm text-gray-400">
+                                    <thead class="bg-white/5 uppercase text-xs text-gray-200 sticky top-0 z-10 backdrop-blur-md">
+                                        <tr>
+                                            <th class="px-4 py-3 w-12 text-center">
+                                                <input type="checkbox" id="master-checkbox" onchange="bulkSelectAll(this.checked)" class="checkbox-custom">
+                                            </th>
+                                            <th class="px-4 py-3">Student Email</th>
+                                            <th class="px-4 py-3">Student Name</th>
+                                            <th class="px-4 py-3 w-10"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="student-list-body" class="divide-y divide-white/5">
+                                        <!-- Rows Populated by JS -->
+                                        <tr><td colspan="4" class="text-center py-6">Loading students...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="mt-6 flex justify-end">
+                                <button onclick="issueBulkCertificates()" id="issue-btn" class="bg-primary hover:bg-orange-700 text-white font-bold py-3 px-8 rounded-lg transition shadow-lg shadow-orange-500/20 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <i data-lucide="send"></i> Issue Certificates
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB: MANAGE -->
+                    <div id="admin-tab-manage" class="hidden-page glass rounded-2xl p-8">
+                        <div class="mb-6 flex justify-between items-center">
+                            <h2 class="text-2xl font-bold font-display">Certificate Registry</h2>
+                            <button onclick="loadAdminCerts()" class="p-2 bg-white/5 rounded-lg hover:bg-white/10"><i data-lucide="refresh-cw" class="w-4 h-4"></i></button>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm text-gray-400">
+                                <thead class="bg-white/5 uppercase text-xs text-gray-200">
+                                    <tr>
+                                        <th class="px-6 py-4 rounded-tl-lg">ID</th>
+                                        <th class="px-6 py-4">Student</th>
+                                        <th class="px-6 py-4">Course</th>
+                                        <th class="px-6 py-4">Status</th>
+                                        <th class="px-6 py-4 rounded-tr-lg">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-cert-list" class="divide-y divide-white/5">
+                                    <!-- Populated JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: STUDENT DASHBOARD -->
+        <div id="page-student" class="page-view hidden-page max-w-7xl mx-auto">
+            <div class="glass rounded-2xl p-8 mb-8">
+                <h1 class="text-3xl font-display font-bold mb-2">My Certifications</h1>
+                <p class="text-gray-400">View and download your earned credentials.</p>
+            </div>
+
+            <div id="student-cert-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Cert Cards injected here -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- AUTH MODAL -->
+    <div id="auth-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden bg-black/80 backdrop-blur-sm">
+        <div class="glass-high p-8 rounded-2xl w-full max-w-md relative animate-scale-in">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i data-lucide="x"></i></button>
+            
+            <h2 id="auth-title" class="text-2xl font-bold font-display mb-6 text-center">Student Login</h2>
+            
+            <div class="space-y-4">
+                <input type="email" id="auth-email" placeholder="Email Address" class="input-field">
+                <input type="password" id="auth-password" placeholder="Password" class="input-field">
+                
+                <!-- Secret code only visible in Register Mode -->
+                <div id="admin-code-container" class="hidden">
+                    <label class="text-xs text-primary mb-1 block">Admin Secret Code (Optional)</label>
+                    <input type="text" id="auth-admin-code" placeholder="Enter code to be Admin" class="input-field border-primary/50">
+                </div>
+
+                <p id="auth-error" class="text-red-500 text-sm text-center hidden"></p>
+                
+                <button id="auth-submit-btn" class="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-orange-700 transition">
+                    Login
+                </button>
+                
+                <div class="text-center text-sm text-gray-400 mt-4">
+                    <span id="auth-toggle-text">New here?</span> 
+                    <button onclick="toggleAuthMode()" id="auth-toggle-btn" class="text-white underline hover:text-primary">Create Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CERTIFICATE PREVIEW MODAL -->
+    <div id="cert-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden bg-black/75 backdrop-blur-xl p-3 sm:p-6 transition-all duration-300">
+        <div class="bg-white rounded-[2rem] sm:rounded-[2.5rem] w-full max-w-5xl relative animate-scale-in flex flex-col lg:flex-row overflow-hidden max-h-[92vh] shadow-[0_30px_90px_rgba(0,0,0,0.35)] border border-gray-100">
+            <!-- Close Button -->
+            <button onclick="closeCertModal()" class="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-gray-900/10 hover:bg-gray-900/20 text-gray-700 hover:text-gray-950 flex items-center justify-center backdrop-blur-md transition-all duration-200">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            
+            <!-- Left: Visual Certificate (High-Resolution Crisp Printable Canvas) -->
+            <div class="w-full lg:w-[62%] bg-[#FCFCFD] text-gray-900 p-6 sm:p-10 md:p-12 relative flex flex-col items-center justify-between text-center overflow-y-auto min-h-[480px] select-none" id="cert-print-area">
+                <!-- Elegant Double Frame -->
+                <div class="absolute inset-3 sm:inset-4 border border-orange-500/20 rounded-2xl pointer-events-none"></div>
+                <div class="absolute inset-4 sm:inset-5 border-2 border-orange-500/40 rounded-xl pointer-events-none"></div>
+                
+                <!-- Corner Luxury Ornaments -->
+                <div class="absolute top-6 left-6 w-8 h-8 border-t-2 border-l-2 border-primary"></div>
+                <div class="absolute top-6 right-6 w-8 h-8 border-t-2 border-r-2 border-primary"></div>
+                <div class="absolute bottom-6 left-6 w-8 h-8 border-b-2 border-l-2 border-primary"></div>
+                <div class="absolute bottom-6 right-6 w-8 h-8 border-b-2 border-r-2 border-primary"></div>
+
+                <!-- Watermark Security Seal Glow -->
+                <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
+                    <i data-lucide="award" class="w-64 h-64"></i>
+                </div>
+
+                <!-- Certificate Header -->
+                <div class="relative z-10 w-full pt-2">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-primary to-orange-400 text-white flex items-center justify-center mx-auto mb-3 shadow-lg shadow-primary/25">
+                        <i data-lucide="award" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h1 class="font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-[0.25em] text-gray-950">Certificate</h1>
+                    <p class="font-serif italic text-primary text-base sm:text-lg font-medium tracking-wide">of Achievement</p>
+                </div>
+
+                <!-- Certificate Body -->
+                <div class="relative z-10 my-6 sm:my-8 w-full max-w-lg">
+                    <p class="text-gray-400 uppercase tracking-[0.2em] text-[10px] font-semibold mb-2">This is to proudly certify that</p>
+                    <h2 id="modal-student-name" class="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-gray-950 px-4 py-1.5 border-b border-gray-200 inline-block max-w-full truncate tracking-tight">Student Name</h2>
+                    
+                    <p class="text-gray-400 uppercase tracking-[0.2em] text-[10px] font-semibold mt-5 mb-1.5">has successfully completed the comprehensive masterclass in</p>
+                    <h3 id="modal-course-name" class="text-lg sm:text-xl md:text-2xl font-black text-primary font-display tracking-tight">Course Title Here</h3>
+                </div>
+
+                <!-- Certificate Footer & Signatures -->
+                <div class="relative z-10 w-full max-w-md pt-4 mt-auto">
+                    <div class="flex justify-between items-end px-4 sm:px-6">
+                        <div class="text-left">
+                            <p id="modal-date" class="font-mono font-bold text-xs sm:text-sm text-gray-900">Date</p>
+                            <div class="h-0.5 w-24 bg-gray-300 mt-1 mb-1"></div>
+                            <p class="text-[9px] sm:text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Date Issued</p>
+                        </div>
+                        
+                        <!-- Security Stamp Center Pill -->
+                        <div class="hidden sm:flex flex-col items-center pb-1">
+                            <div class="w-10 h-10 rounded-full border border-orange-200 bg-orange-50/80 flex items-center justify-center text-primary text-xs shadow-sm">
+                                <i data-lucide="shield-check" class="w-5 h-5 text-primary"></i>
+                            </div>
+                            <span class="text-[8px] font-mono text-gray-400 mt-1 uppercase tracking-widest">Verified</span>
+                        </div>
+
+                        <div class="text-right">
+                            <p class="font-serif italic text-xs sm:text-sm text-gray-950 font-bold">Rukshan Amodya</p>
+                            <div class="h-0.5 w-24 bg-gray-300 mt-1 mb-1 ml-auto"></div>
+                            <p class="text-[9px] sm:text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Authorized Signature</p>
+                        </div>
+                    </div>
+
+                    <!-- Micro ID -->
+                    <div class="mt-5 text-[10px] text-gray-400 font-mono tracking-wider" id="modal-cert-id">ID: CERT-XYZ-2026</div>
+                </div>
+            </div>
+
+            <!-- Right: High-End Details & Actions Sidebar -->
+            <div class="w-full lg:w-[38%] bg-[#0B0F17] text-white p-6 sm:p-8 md:p-10 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-white/5 relative">
+                <!-- Glow Accents in Sidebar -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10">
+                    <!-- Verification Status Pill -->
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold mb-6">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Verified & Active
+                    </div>
+
+                    <h3 class="text-xl sm:text-2xl font-bold font-display text-white tracking-tight mb-1">Credential Details</h3>
+                    <p class="text-xs text-gray-400 mb-6 leading-relaxed">This official record is cryptographically verified on the Questra Qualificates ledger.</p>
+
+                    <!-- Key Value Meta Cards -->
+                    <div class="space-y-3.5 mb-6">
+                        <div class="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                            <span class="text-[10px] text-gray-400 uppercase tracking-wider font-bold block mb-0.5">Recipient</span>
+                            <p class="text-white font-semibold text-sm truncate" id="detail-name">-</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                            <span class="text-[10px] text-gray-400 uppercase tracking-wider font-bold block mb-0.5">Curriculum / Program</span>
+                            <p class="text-primary font-semibold text-sm line-clamp-1" id="detail-course">-</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                            <span class="text-[10px] text-gray-400 uppercase tracking-wider font-bold block mb-0.5">Issue Timestamp</span>
+                            <p class="text-gray-200 font-mono text-xs" id="detail-date">-</p>
+                        </div>
+                    </div>
+
+                    <!-- OWNER ACTIONS (Visible for Owner / Admin) -->
+                    <div id="owner-actions" class="hidden flex flex-col gap-2.5 mb-6">
+                        <div class="p-2.5 rounded-xl bg-orange-500/10 border border-orange-500/20 text-[11px] text-orange-300 flex items-center gap-2">
+                            <i data-lucide="award" class="w-4 h-4 text-primary"></i>
+                            <span>You are viewing as credential owner.</span>
+                        </div>
+
+                        <button onclick="addToLinkedIn()" id="btn-linkedin" class="w-full bg-[#0A66C2] hover:bg-[#004182] text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-[#0A66C2]/20 flex items-center justify-center gap-2 text-xs sm:text-sm">
+                            <i data-lucide="linkedin" class="w-4 h-4"></i>
+                            <span>Add to LinkedIn Profile</span>
+                        </button>
+                        
+                        <button onclick="downloadPDF()" class="w-full bg-white hover:bg-gray-100 text-gray-950 font-bold py-3 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 text-xs sm:text-sm">
+                            <i data-lucide="download" class="w-4 h-4 text-primary"></i>
+                            <span>Download Official PDF</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PUBLIC SHARE LINK -->
+                <div class="relative z-10 pt-4 border-t border-white/10">
+                    <label class="text-[10px] text-gray-400 uppercase tracking-wider font-bold block mb-1.5">Shareable Verification URL</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="share-link-input" readonly class="w-full bg-black/40 border border-white/10 focus:border-primary/60 rounded-xl px-3.5 py-2.5 text-xs text-gray-300 font-mono outline-none">
+                        <button onclick="copyShareLink()" title="Copy Link" class="bg-primary/20 hover:bg-primary text-primary hover:text-white px-3.5 rounded-xl transition-colors flex items-center justify-center">
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-8 right-8 bg-white text-dark px-6 py-4 rounded-xl shadow-2xl transform translate-y-24 opacity-0 transition-all duration-300 z-[200] flex items-center gap-3">
+        <i data-lucide="info" class="text-primary"></i>
+        <span id="toast-msg" class="font-medium">Notification</span>
+    </div>
+
+    <!-- Firebase Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, query, where, getDocs, updateDoc, deleteDoc, serverTimestamp, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Dynamic Secure Configuration from DevLK Master Core Worker
+        const GATEWAY_URL = 'https://devlk-core-api.agency-digitra.workers.dev';
+        
+        async function fetchSecureConfig() {
+            try {
+                const res = await fetch(`${GATEWAY_URL}/api/config`);
+                if (!res.ok) throw new Error("Security Gateway unavailable");
+                const data = await res.json();
+                if (!data.firebaseConfig) throw new Error("Security payload missing configuration");
+                return data.firebaseConfig;
+            } catch(e) {
+                console.error("Critical Security Gateway Error:", e);
+                alert("Security Gateway Error: Unable to securely connect to certification backend services.");
+                throw e;
+            }
+        }
+
+        const firebaseConfig = await fetchSecureConfig();
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // State
+        let currentUser = null;
+        let userRole = 'student'; // 'admin' or 'student'
+        let currentCertData = null; // Store currently viewed cert data
+
+        // --- GLOBAL FUNCTIONS (Attached to Window) ---
+        
+        window.router = (page) => {
+            document.querySelectorAll('.page-view').forEach(el => el.classList.add('hidden-page'));
+            document.getElementById(`page-${page}`).classList.remove('hidden-page');
+            
+            // Animation for page enter
+            gsap.from(`#page-${page}`, { opacity: 0, y: 10, duration: 0.4 });
+
+            if(page === 'admin') {
+                loadAdminCerts();
+                // Default to loading list if on issue tab
+                if(!document.getElementById('admin-tab-issue').classList.contains('hidden-page')){
+                    loadStudentListForIssue();
+                }
+            }
+            if(page === 'student') loadStudentCerts();
+        };
+
+        window.showToast = (msg, type='info') => {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        };
+
+        // --- URL PARAMETER HANDLING (For Public Verification) ---
+        window.checkUrlParams = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const verifyId = urlParams.get('verify');
+            if (verifyId) {
+                console.log("Verifying from URL:", verifyId);
+                viewCert(verifyId);
+            }
+        };
+
+        // --- AUTH UI LOGIC ---
+        let isLogin = true;
+        
+        window.openAuthModal = () => {
+            document.getElementById('auth-modal').classList.remove('hidden');
+        };
+
+        window.closeAuthModal = () => {
+            document.getElementById('auth-modal').classList.add('hidden');
+            document.getElementById('auth-error').classList.add('hidden');
+        };
+
+        window.toggleAuthMode = () => {
+            isLogin = !isLogin;
+            const title = document.getElementById('auth-title');
+            const submitBtn = document.getElementById('auth-submit-btn');
+            const toggleText = document.getElementById('auth-toggle-text');
+            const toggleBtn = document.getElementById('auth-toggle-btn');
+            const adminCodeContainer = document.getElementById('admin-code-container');
+
+            if (isLogin) {
+                title.textContent = "Student Login";
+                submitBtn.textContent = "Login";
+                toggleText.textContent = "New here?";
+                toggleBtn.textContent = "Create Account";
+                adminCodeContainer.classList.add('hidden');
+            } else {
+                title.textContent = "Create Account";
+                submitBtn.textContent = "Sign Up";
+                toggleText.textContent = "Already have an account?";
+                toggleBtn.textContent = "Login";
+                adminCodeContainer.classList.remove('hidden');
+            }
+        };
+
+        // --- AUTH ACTIONS ---
+        document.getElementById('auth-submit-btn').addEventListener('click', async () => {
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+            const adminCode = document.getElementById('auth-admin-code').value;
+            const errorText = document.getElementById('auth-error');
+
+            if (!email || !password) {
+                errorText.textContent = "Please fill all fields";
+                errorText.classList.remove('hidden');
+                return;
+            }
+
+            try {
+                if (isLogin) {
+                    await signInWithEmailAndPassword(auth, email, password);
+                } else {
+                    // Registration
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    const user = userCredential.user;
+                    
+                    // Role Assignment based on Secret Code
+                    const role = (adminCode === "QUESTRA") ? "admin" : "student";
+                    
+                    // Store user data
+                    await setDoc(doc(db, "users", user.uid), {
+                        email: email,
+                        role: role,
+                        createdAt: serverTimestamp()
+                    });
+                    
+                    if (role === 'admin') window.showToast("Welcome Administrator");
+                }
+                closeAuthModal();
+            } catch (error) {
+                errorText.textContent = error.message.replace('Firebase:', '').replace('auth/', '');
+                errorText.classList.remove('hidden');
+            }
+        });
+
+        window.logout = async () => {
+            await signOut(auth);
+            window.router('home');
+            window.showToast("Logged out successfully");
+            // Reload to clear state/url params if needed
+            if(window.location.search) window.history.pushState({}, document.title, window.location.pathname);
+        };
+
+        // --- AUTH STATE LISTENER ---
+        onAuthStateChanged(auth, async (user) => {
+            const navContainer = document.getElementById('nav-auth-buttons');
+            currentUser = user;
+
+            if (user) {
+                // Fetch Role
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                if (userDoc.exists()) {
+                    userRole = userDoc.data().role;
+                }
+
+                // UI Update
+                let dashBtn = '';
+                if (userRole === 'admin') {
+                    dashBtn = `<button onclick="router('admin')" class="text-sm font-medium hover:text-primary">Admin Dashboard</button>`;
+                } else {
+                    dashBtn = `<button onclick="router('student')" class="text-sm font-medium hover:text-primary">My Certs</button>`;
+                }
+
+                navContainer.innerHTML = `
+                    ${dashBtn}
+                    <div class="h-8 w-px bg-white/10"></div>
+                    <span class="text-xs text-gray-400">${user.email}</span>
+                    <button onclick="logout()" class="p-2 hover:bg-white/10 rounded-full"><i data-lucide="log-out" class="w-4 h-4"></i></button>
+                `;
+            } else {
+                navContainer.innerHTML = `
+                    <button onclick="openAuthModal()" class="text-sm font-bold text-white bg-white/10 hover:bg-white/20 px-5 py-2 rounded-full transition border border-white/5">
+                        Login / Sign Up
+                    </button>
+                `;
+                userRole = null;
+            }
+            lucide.createIcons();
+            
+            // Initial URL Check (Runs after auth check to ensure we know if user is owner or not)
+            if(!window.urlChecked) {
+                window.urlChecked = true;
+                checkUrlParams();
+            }
+        });
+
+        // --- ADMIN FUNCTIONS ---
+        
+        window.adminSwitchTab = (tab) => {
+            document.getElementById('admin-tab-issue').classList.add('hidden-page');
+            document.getElementById('admin-tab-manage').classList.add('hidden-page');
+            document.getElementById(`admin-tab-${tab}`).classList.remove('hidden-page');
+            
+            // Button Styles
+            const btnIssue = document.getElementById('tab-btn-issue');
+            const btnManage = document.getElementById('tab-btn-manage');
+            
+            if(tab === 'issue') {
+                btnIssue.className = "w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/20 text-primary border border-primary/20 transition";
+                btnManage.className = "w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition";
+                loadStudentListForIssue();
+            } else {
+                btnManage.className = "w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/20 text-primary border border-primary/20 transition";
+                btnIssue.className = "w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition";
+                loadAdminCerts();
+            }
+        };
+
+        // --- NEW: BULK ISSUE LOGIC ---
+        window.loadStudentListForIssue = async () => {
+            const tbody = document.getElementById('student-list-body');
+            tbody.innerHTML = '<tr><td colspan="4" class="text-center py-6 text-gray-500">Fetching students...</td></tr>';
+            
+            try {
+                // Fetch all users with role 'student'
+                const q = query(collection(db, "users"), where("role", "==", "student"));
+                const querySnapshot = await getDocs(q);
+                
+                tbody.innerHTML = ''; // Clear loading
+                
+                // If DB empty, just leave empty or show message (user can add manually)
+                if(querySnapshot.empty) {
+                     // No rows yet
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const email = data.email;
+                    
+                    // Use 'initials' field from DB if available, otherwise fallback to email formatting
+                    const autoName = data.initials ? data.initials : email.split('@')[0].replace(/\./g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-white/5 transition border-b border-white/5";
+                    tr.innerHTML = `
+                        <td class="px-4 py-3 text-center">
+                            <input type="checkbox" class="student-select-checkbox checkbox-custom" data-email="${email}">
+                        </td>
+                        <td class="px-4 py-3 text-white font-mono text-xs">${email}</td>
+                        <td class="px-4 py-3">
+                            <input type="text" class="student-name-input bg-transparent border-b border-white/20 focus:border-primary focus:outline-none w-full text-white text-sm" value="${autoName}">
+                        </td>
+                        <td class="px-4 py-3 text-center"></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+                
+                if(tbody.innerHTML === '') {
+                     tbody.innerHTML = '<tr id="empty-msg"><td colspan="4" class="text-center py-6 text-gray-500">No registered students found. Add one manually below.</td></tr>';
+                }
+                
+                lucide.createIcons();
+            } catch (err) {
+                console.error(err);
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center py-6 text-red-500">Error loading students.</td></tr>';
+            }
+        };
+        
+        // MANUALLY ADD ROW
+        window.addManualStudentRow = () => {
+            const tbody = document.getElementById('student-list-body');
+            const emptyMsg = document.getElementById('empty-msg');
+            if(emptyMsg) emptyMsg.remove();
+            
+            const tr = document.createElement('tr');
+            tr.className = "hover:bg-white/5 transition border-b border-white/5";
+            tr.innerHTML = `
+                <td class="px-4 py-3 text-center">
+                    <input type="checkbox" class="student-select-checkbox checkbox-custom" checked>
+                </td>
+                <td class="px-4 py-3">
+                    <input type="email" class="student-email-input bg-transparent border-b border-white/20 focus:border-primary focus:outline-none w-full text-white font-mono text-xs" placeholder="student@example.com">
+                </td>
+                <td class="px-4 py-3">
+                    <input type="text" class="student-name-input bg-transparent border-b border-white/20 focus:border-primary focus:outline-none w-full text-white text-sm" placeholder="Full Name">
+                </td>
+                <td class="px-4 py-3 text-center">
+                    <button onclick="this.closest('tr').remove()" class="text-red-500 hover:text-red-400"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                </td>
+            `;
+            tbody.prepend(tr); // Add to top
+            lucide.createIcons();
+        };
+
+        window.bulkSelectAll = (checked) => {
+            const checkboxes = document.querySelectorAll('.student-select-checkbox');
+            checkboxes.forEach(cb => cb.checked = checked);
+            const master = document.getElementById('master-checkbox');
+            if(master) master.checked = checked;
+        };
+
+        window.issueBulkCertificates = async () => {
+            // Check Auth directly here to ensure freshness
+            const user = auth.currentUser || currentUser;
+            
+            if(!user) {
+                window.showToast("Admin not authenticated. Please login.", "error");
+                return;
+            }
+
+            const checkboxes = document.querySelectorAll('.student-select-checkbox:checked');
+            const courseTitle = document.getElementById('bulk-course-title').value.trim();
+            const locked = document.getElementById('bulk-locked').checked;
+
+            if (checkboxes.length === 0) {
+                window.showToast("Please select at least one student");
+                return;
+            }
+            if (!courseTitle) {
+                window.showToast("Please enter a Course Title");
+                return;
+            }
+
+            if (!confirm(`Issue "${courseTitle}" to ${checkboxes.length} selected students?`)) return;
+
+            // Show Loading State on Button
+            const btn = document.getElementById('issue-btn');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `<i data-lucide="loader-2" class="animate-spin w-4 h-4"></i> Issuing...`;
+            lucide.createIcons();
+
+            let issuedCount = 0;
+            const batchPromises = [];
+
+            try {
+                for (const cb of checkboxes) {
+                    const row = cb.closest('tr');
+                    if(!row) continue;
+
+                    const nameInput = row.querySelector('.student-name-input');
+                    const emailInput = row.querySelector('.student-email-input');
+                    
+                    // Name: Prefer input value, default to "Student"
+                    const name = nameInput ? nameInput.value.trim() : "Student";
+                    
+                    // Email: Check dataset (from DB) first, then check input value (from Manual Row)
+                    let email = cb.dataset.email;
+                    if (!email && emailInput) {
+                        email = emailInput.value.trim();
+                    }
+
+                    if(!email) {
+                        console.warn("Skipping row with no email");
+                        continue;
+                    }
+
+                    const certId = "CERT-" + Math.random().toString(36).substr(2, 6).toUpperCase() + "-" + new Date().getFullYear();
+
+                    const certData = {
+                        certId: certId,
+                        studentName: name,
+                        studentEmail: email,
+                        courseName: courseTitle,
+                        issueDate: serverTimestamp(),
+                        isLocked: locked,
+                        issuerId: user.uid
+                    };
+
+                    // Push promise
+                    batchPromises.push(
+                        setDoc(doc(db, "certificates", certId), certData)
+                        .then(() => {
+                            issuedCount++;
+                        })
+                        .catch(err => {
+                            console.error("Failed to issue for " + email, err);
+                        })
+                    );
+                }
+
+                await Promise.all(batchPromises);
+                
+                if (issuedCount > 0) {
+                    window.showToast(`Success! Issued ${issuedCount} certificates.`);
+                    // Reset inputs
+                    document.getElementById('bulk-course-title').value = '';
+                    document.querySelectorAll('.student-select-checkbox').forEach(cb => cb.checked = false);
+                    const masterCb = document.getElementById('master-checkbox');
+                    if(masterCb) masterCb.checked = false;
+                } else {
+                    window.showToast("No certificates issued. Check console for errors.", "error");
+                }
+
+            } catch (err) {
+                console.error("Bulk Issue Error:", err);
+                window.showToast("Critical Error: " + err.message);
+            } finally {
+                // Restore button
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+                lucide.createIcons();
+            }
+        };
+
+        // --- EXISTING ADMIN FUNCTIONS ---
+        window.loadAdminCerts = async () => {
+            const tbody = document.getElementById('admin-cert-list');
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4">Loading...</td></tr>';
+            
+            const q = query(collection(db, "certificates"), orderBy("issueDate", "desc"));
+            const querySnapshot = await getDocs(q);
+            
+            tbody.innerHTML = '';
+            
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const statusClass = data.isLocked ? "text-red-400" : "text-green-400";
+                const statusText = data.isLocked ? "Locked" : "Active";
+                const btnAction = data.isLocked ? "Unlock" : "Lock";
+                const btnIcon = data.isLocked ? "unlock" : "lock";
+                
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-white/5 transition";
+                tr.innerHTML = `
+                    <td class="px-6 py-4 font-mono text-xs">${data.certId}</td>
+                    <td class="px-6 py-4 font-bold text-white">${data.studentName}</td>
+                    <td class="px-6 py-4">${data.courseName}</td>
+                    <td class="px-6 py-4 ${statusClass} font-medium text-xs uppercase">${statusText}</td>
+                    <td class="px-6 py-4 flex gap-2">
+                        <button onclick="toggleCertLock('${doc.id}', ${!data.isLocked})" class="p-2 bg-white/10 rounded hover:bg-white/20 text-white" title="${btnAction}">
+                            <i data-lucide="${btnIcon}" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="deleteCert('${doc.id}')" class="p-2 bg-red-500/10 text-red-500 rounded hover:bg-red-500/20" title="Delete">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            lucide.createIcons();
+        };
+
+        window.toggleCertLock = async (id, newState) => {
+            await updateDoc(doc(db, "certificates", id), { isLocked: newState });
+            loadAdminCerts();
+            window.showToast(newState ? "Certificate Locked" : "Certificate Unlocked");
+        };
+
+        window.deleteCert = async (id) => {
+            if(confirm("Are you sure? This cannot be undone.")) {
+                await deleteDoc(doc(db, "certificates", id));
+                loadAdminCerts();
+                window.showToast("Certificate Deleted");
+            }
+        };
+
+        // --- STUDENT FUNCTIONS ---
+        window.loadStudentCerts = async () => {
+            if(!currentUser) return;
+            
+            const grid = document.getElementById('student-cert-grid');
+            grid.innerHTML = '<p class="text-white">Loading...</p>';
+            
+            const q = query(collection(db, "certificates"), where("studentEmail", "==", currentUser.email));
+            const querySnapshot = await getDocs(q);
+            
+            grid.innerHTML = '';
+            
+            if(querySnapshot.empty) {
+                grid.innerHTML = '<p class="text-gray-500 col-span-3 text-center py-10">No certificates found for your email.</p>';
+                return;
+            }
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const date = data.issueDate ? data.issueDate.toDate().toLocaleDateString() : 'Pending';
+                
+                let cardContent = '';
+                
+                if(data.isLocked) {
+                    // Locked State
+                    cardContent = `
+                        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm z-10 flex flex-col items-center justify-center text-center p-4">
+                            <div class="bg-gray-800 p-3 rounded-full mb-3">
+                                <i data-lucide="lock" class="w-6 h-6 text-gray-400"></i>
+                            </div>
+                            <h3 class="text-white font-bold">Certificate Locked</h3>
+                            <p class="text-xs text-gray-400 mt-1">Contact admin to release.</p>
+                        </div>
+                    `;
+                }
+
+                const card = document.createElement('div');
+                card.className = "glass rounded-xl overflow-hidden relative group";
+                card.innerHTML = `
+                    ${cardContent}
+                    <div class="h-2 w-full bg-gradient-to-r from-orange-500 to-purple-600"></div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <i data-lucide="award" class="w-8 h-8 text-primary"></i>
+                            <span class="text-[10px] font-mono bg-white/5 px-2 py-1 rounded text-gray-400">${data.certId}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-1">${data.courseName}</h3>
+                        <p class="text-sm text-gray-400 mb-4">Issued to ${data.studentName}</p>
+                        
+                        <div class="pt-4 border-t border-white/5 flex justify-between items-center">
+                            <span class="text-xs text-gray-500">${date}</span>
+                            ${!data.isLocked ? `<button onclick="viewCert('${data.certId}')" class="text-xs bg-white text-dark font-bold px-3 py-1.5 rounded hover:bg-gray-200 transition">View</button>` : ''}
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        };
+
+        // --- PUBLIC VERIFICATION ---
+        window.handleVerify = async () => {
+            const input = document.getElementById('verify-input').value.trim();
+            if(!input) return;
+            
+            viewCert(input);
+        };
+
+        window.viewCert = async (certId) => {
+            try {
+                const docRef = doc(db, "certificates", certId);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    currentCertData = data; // Store for LinkedIn logic
+                    
+                    if(data.isLocked) {
+                        window.showToast("This certificate exists but is currently locked by the issuer.");
+                        return;
+                    }
+
+                    // Populate Modal
+                    document.getElementById('modal-student-name').textContent = data.studentName;
+                    document.getElementById('modal-course-name').textContent = data.courseName;
+                    const dateStr = data.issueDate ? data.issueDate.toDate().toLocaleDateString() : new Date().toLocaleDateString();
+                    document.getElementById('modal-date').textContent = dateStr;
+                    document.getElementById('modal-cert-id').textContent = `ID: ${data.certId}`;
+                    
+                    // Sidebar details
+                    document.getElementById('detail-name').textContent = data.studentName;
+                    document.getElementById('detail-course').textContent = data.courseName;
+                    document.getElementById('detail-date').textContent = dateStr;
+
+                    // --- OWNERSHIP CHECK ---
+                    // Hide actions by default
+                    const actionContainer = document.getElementById('owner-actions');
+                    actionContainer.classList.add('hidden');
+
+                    if (currentUser && currentUser.email === data.studentEmail) {
+                        // User is owner -> Show actions
+                        actionContainer.classList.remove('hidden');
+                    }
+
+                    // --- POPULATE SHARE LINK ---
+                    // Construct the URL: current domain + ?verify=ID
+                    const shareUrl = window.location.origin + window.location.pathname + '?verify=' + data.certId;
+                    document.getElementById('share-link-input').value = shareUrl;
+
+                    // Show Modal
+                    document.getElementById('cert-modal').classList.remove('hidden');
+                } else {
+                    window.showToast("Invalid Certificate ID", "error");
+                }
+            } catch (error) {
+                console.error(error);
+                window.showToast("Error verifying ID");
+            }
+        };
+
+        // --- SHARE LINK COPY ---
+        window.copyShareLink = () => {
+            const copyText = document.getElementById("share-link-input");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(copyText.value);
+            window.showToast("Link Copied to Clipboard");
+        };
+
+        // --- ADDED: LINKEDIN LOGIC ---
+        window.addToLinkedIn = () => {
+            if(!currentCertData) return;
+            
+            const date = currentCertData.issueDate ? currentCertData.issueDate.toDate() : new Date();
+            const issueYear = date.getFullYear();
+            const issueMonth = date.getMonth() + 1;
+            
+            // Generate exact verify link
+            const verifyLink = window.location.origin + window.location.pathname + '?verify=' + currentCertData.certId;
+
+            // Construct URL
+            const params = new URLSearchParams({
+                startTask: "CERTIFICATION_NAME",
+                name: currentCertData.courseName,
+                organizationId: "110481949", // Example QuestraX Org ID
+                issueYear: issueYear,
+                issueMonth: issueMonth,
+                certId: currentCertData.certId,
+                certUrl: verifyLink // Points to the specific verification view
+            });
+            
+            window.open(`https://www.linkedin.com/profile/add?${params.toString()}`, '_blank');
+        };
+
+        window.closeCertModal = () => {
+            document.getElementById('cert-modal').classList.add('hidden');
+            // Optional: Clear URL param when closing modal if desired, but keeping it allows refresh to stay on cert
+        };
+
+        window.downloadPDF = async () => {
+            const { jsPDF } = window.jspdf;
+            const element = document.getElementById('cert-print-area');
+            
+            // Temporary style adjustment for printing
+            element.classList.add('scale-[1]'); 
+            
+            try {
+                const canvas = await html2canvas(element, { scale: 2 });
+                const imgData = canvas.toDataURL('image/png');
+                
+                const pdf = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'px',
+                    format: [canvas.width, canvas.height]
+                });
+                
+                pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+                pdf.save("certificate.pdf");
+                window.showToast("Download started");
+            } catch (err) {
+                console.error(err);
+                window.showToast("Error generating PDF");
+            }
+        };
+
+        // Initialize Icons
+        lucide.createIcons();
+    </script>
+    
+    <!-- Helper for html2canvas (Loaded late to ensure dependencies) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        /* Animations */
+        @keyframes fade-in-down {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scale-in {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .animate-fade-in-down { animation: fade-in-down 0.8s ease-out forwards; }
+        .animate-scale-in { animation: scale-in 0.3s ease-out forwards; }
+    </style>
+</body>
+</html>
