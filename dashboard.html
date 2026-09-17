@@ -719,10 +719,7 @@
                                 </div>
                                 <span class="truncate flex-1">Classroom</span>
                             </button>
-                            <button onclick="app.dashView('notes')" class="dash-link nav-notes aethera-nav-link group relative w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium text-xs text-left" title="Resources">
-                                <i class="fa-solid fa-folder-open text-sm text-slate-400 transition shrink-0 w-5 text-center nav-icon"></i>
-                                <span class="truncate flex-1">Resources</span>
-                            </button>
+                            
                         </nav>
                     </div>
 
@@ -905,10 +902,7 @@
                                     <span class="sidebar-text-item truncate flex-1">Classroom</span>
                                 </button>
 
-                                <button onclick="app.dashView('notes')" class="dash-link nav-notes aethera-nav-link group relative w-full flex items-center gap-2.5 px-3 py-2 rounded-xl font-medium text-xs text-left" id="nav-notes" title="Resources">
-                                    <i class="fa-solid fa-folder-open text-sm text-slate-400 transition shrink-0 w-5 text-center nav-icon"></i>
-                                    <span class="sidebar-text-item truncate flex-1">Resources</span>
-                                </button>
+                                
                             </nav>
                         </div>
 
@@ -1113,7 +1107,7 @@
                     </div>
 
                     <!-- 4-Card Quick Action Hub Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
                         
                         <!-- Card 1: Classroom -->
                         <div onclick="app.dashView('lessons')" class="bg-[#0d0f1a]/90 backdrop-blur-xl p-6 rounded-[2rem] border border-white/[0.08] hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/10 transition cursor-pointer group hover:-translate-y-1 duration-200 flex flex-col justify-between">
@@ -1507,14 +1501,7 @@
                     </div>
                 </div>
 
-                <!-- ================= VIEW 3: RESOURCES ================= -->
-                <div id="view-notes" class="dash-view hidden max-w-7xl mx-auto space-y-6">
-                    <div>
-                        <h2 class="text-3xl font-bold font-heading text-white">Learning Resources & Code Repositories</h2>
-                        <p class="text-slate-300 text-sm mt-1">Official slide decks, code templates, and downloadable assets for all 17 days.</p>
-                    </div>
-                    <div class="grid gap-4" id="notesList"></div>
-                </div>
+                
 
                 <!-- ================= VIEW 4: QUIZZES ================= -->
                 <div id="view-quizzes" class="dash-view hidden max-w-7xl mx-auto space-y-6">
@@ -1541,35 +1528,155 @@
                 </div>
                 
                 <!-- ================= VIEW 5: CAPSTONE PROJECTS ================= -->
-                <div id="view-projects" class="dash-view hidden max-w-7xl mx-auto space-y-6">
-                    <div>
-                        <h2 class="text-3xl font-bold font-heading text-white">Final Project Submission</h2>
-                        <p class="text-slate-300 text-sm mt-1">Submit your production-ready autonomous multi-agent full-stack application for evaluation.</p>
-                    </div>
+                <div id="view-projects" class="dash-view hidden max-w-7xl mx-auto space-y-8">
                     
-                    <!-- Project Status Display -->
-                    <div id="project-status-display" class="bg-[#0d0f1a] p-8 rounded-[2rem] border border-white/[0.08] shadow-sm mb-8 hidden">
-                        <h3 class="text-xl font-bold mb-2 flex items-center gap-2 font-heading text-white" id="projectStatusHeader"></h3>
-                        <p class="text-slate-300 mb-4 text-sm font-medium" id="projectStatusDetail"></p>
-                        <p class="text-sm text-slate-500">Submission Link: <a href="#" id="submittedProjectLink" target="_blank" class="text-orange-600 font-bold hover:underline font-mono truncate max-w-full inline-block"></a></p>
-                        <button onclick="app.showProjectForm(true)" class="mt-4 text-xs font-bold text-slate-100 hover:text-orange-600 transition">Edit Submission &rarr;</button>
+                    <!-- Capstone Studio Hero Banner -->
+                    <div class="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#0c0e1c] via-[#121528] to-[#1a142e] p-8 sm:p-10 border border-white/[0.08] text-white shadow-2xl">
+                        <div class="absolute -right-16 -top-16 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div class="absolute -left-16 -bottom-16 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                        <div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                            <div class="max-w-2xl space-y-3">
+                                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-400 text-xs font-mono font-bold tracking-wider">
+                                    <span class="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></span>
+                                    <span>FINAL EVALUATION MILESTONE</span>
+                                </div>
+                                <h2 class="text-3xl sm:text-4xl font-black font-heading tracking-tight text-white">
+                                    Autonomous Multi-Agent Capstone Studio
+                                </h2>
+                                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                                    Synthesize all architectural concepts taught across the masterclass: Multi-Agent coordination, Cloudflare Workers & R2, Firestore persistence, structured schemas, and responsive UX.
+                                </p>
+                            </div>
+
+                            <div class="flex items-center gap-3 shrink-0">
+                                <div class="px-5 py-3 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-md">
+                                    <span class="text-[10px] uppercase font-mono font-bold text-slate-400 block">Required Passing Grade</span>
+                                    <span class="text-xl font-black text-emerald-400 font-heading">80% / A-Grade</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4 Architecture Guidelines Bento Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="p-5 rounded-2xl bg-[#0d0f1a] border border-white/[0.06] space-y-2">
+                            <div class="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 border border-orange-500/20 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                            <h4 class="text-sm font-bold text-white font-heading">1. Agent Orchestration</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">Multi-agent delegation, system prompts, tool calling, and deterministic JSON schemas.</p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-[#0d0f1a] border border-white/[0.06] space-y-2">
+                            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-cloud"></i>
+                            </div>
+                            <h4 class="text-sm font-bold text-white font-heading">2. Cloud Architecture</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">Cloudflare Worker API Gateway, R2 object storage, and Firestore database integration.</p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-[#0d0f1a] border border-white/[0.06] space-y-2">
+                            <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-layer-group"></i>
+                            </div>
+                            <h4 class="text-sm font-bold text-white font-heading">3. Full-Stack UI/UX</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">Responsive real-time frontend, state persistence, error boundaries, and streaming responses.</p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-[#0d0f1a] border border-white/[0.06] space-y-2">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-video"></i>
+                            </div>
+                            <h4 class="text-sm font-bold text-white font-heading">4. Video Demo & Docs</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">Comprehensive GitHub README.md architecture diagram and 3-5 min Loom/YouTube video walkthrough.</p>
+                        </div>
+                    </div>
+
+                    <!-- Project Status Display (When Submitted) -->
+                    <div id="project-status-display" class="bg-[#0d0f1a] p-6 sm:p-8 rounded-[2rem] border border-white/[0.08] shadow-2xl hidden space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/[0.06]">
+                            <div>
+                                <span class="text-[10px] font-mono uppercase font-bold text-slate-400 tracking-wider">Evaluation Status</span>
+                                <h3 class="text-xl font-bold flex items-center gap-2 font-heading text-white mt-0.5" id="projectStatusHeader">
+                                    <i class="fa-solid fa-clock text-amber-400"></i> Under Evaluation
+                                </h3>
+                            </div>
+                            <button onclick="app.showProjectForm(true)" class="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold text-slate-200 transition flex items-center gap-2 self-start sm:self-auto">
+                                <i class="fa-solid fa-pen-to-square text-orange-400"></i> Edit / Resubmit Solution
+                            </button>
+                        </div>
+                        
+                        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed" id="projectStatusDetail">
+                            Your capstone architecture code is being evaluated by lead instructor Mr. Rukshan Amodya.
+                        </p>
+
+                        <div class="p-4 rounded-2xl bg-[#080912] border border-white/[0.06] grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+                            <div>
+                                <span class="text-[10px] text-slate-500 uppercase block font-bold">Repository URL</span>
+                                <a href="#" id="submittedProjectLink" target="_blank" class="text-orange-400 font-bold hover:underline truncate block mt-0.5">https://github.com/...</a>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-500 uppercase block font-bold">Live Production URL</span>
+                                <a href="#" id="submittedDemoLink" target="_blank" class="text-cyan-400 font-bold hover:underline truncate block mt-0.5">https://...</a>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Project Submission Form -->
-                    <div id="project-submission-form" class="bg-[#0d0f1a]/95 rounded-[2rem] border border-white/[0.08] shadow-2xl p-8 max-w-3xl backdrop-blur-xl">
-                        <h3 class="text-xl font-bold mb-4 font-heading text-white">Submit Your Masterpiece</h3>
-                        <form id="projectForm" class="space-y-4">
+                    <div id="project-submission-form" class="bg-[#0d0f1a] p-6 sm:p-8 rounded-[2.5rem] border border-white/[0.08] shadow-2xl">
+                        <div class="flex items-center justify-between pb-6 border-b border-white/[0.06] mb-6">
                             <div>
-                                <label class="block text-xs uppercase tracking-wider text-slate-300 mb-1.5 font-bold">Project Title *</label>
-                                <input type="text" id="projTitle" required class="w-full px-4 py-3.5 rounded-xl text-sm bg-[#080912] border border-white/[0.08] focus:bg-[#0d0f1a] focus:border-orange-500 outline-none transition font-medium text-white" placeholder="e.g. AI Autonomous Research & Execution Agent">
+                                <h3 class="text-xl font-bold font-heading text-white">Submit Your Capstone Architecture</h3>
+                                <p class="text-xs text-slate-400 mt-0.5">Ensure both public repository and deployed links are live before submitting.</p>
                             </div>
+                            <span class="text-xs font-mono text-orange-400 bg-orange-500/10 border border-orange-500/20 px-3 py-1 rounded-full font-bold">
+                                Cohort 2026 Capstone
+                            </span>
+                        </div>
+
+                        <form id="projectForm" onsubmit="app.submitProject(event)" class="space-y-5">
                             <div>
-                                <label class="block text-xs uppercase tracking-wider text-slate-300 mb-1.5 font-bold">Live Project / GitHub URL *</label>
-                                <input type="url" id="projUrl" required class="w-full px-4 py-3.5 rounded-xl text-sm font-mono bg-[#080912] border border-white/[0.08] focus:bg-[#0d0f1a] focus:border-orange-500 outline-none transition text-white" placeholder="https://github.com/your-username/questra-agent">
+                                <label class="block text-xs uppercase tracking-wider text-slate-300 mb-1.5 font-bold font-mono">Project / System Title *</label>
+                                <input type="text" id="projTitle" required class="w-full px-4 py-3 rounded-xl text-sm bg-[#080912] border border-white/10 focus:border-orange-500 outline-none transition font-medium text-white placeholder-slate-500" placeholder="e.g. Autonomous AI Customer Intelligence & Execution Platform">
                             </div>
-                            <button type="submit" id="projSubmitBtn" class="bg-[#05060c] hover:bg-black text-white px-8 py-3.5 rounded-full font-bold transition shadow-lg text-sm active:scale-95">
-                                Submit for Review
-                            </button>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs uppercase tracking-wider text-slate-300 mb-1.5 font-bold font-mono">GitHub Repository URL *</label>
+                                    <input type="url" id="projUrl" required class="w-full px-4 py-3 rounded-xl text-xs sm:text-sm font-mono bg-[#080912] border border-white/10 focus:border-orange-500 outline-none transition text-white placeholder-slate-500" placeholder="https://github.com/username/project">
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase tracking-wider text-slate-300 mb-1.5 font-bold font-mono">Live Deployment / App URL *</label>
+                                    <input type="url" id="projLiveUrl" required class="w-full px-4 py-3 rounded-xl text-xs sm:text-sm font-mono bg-[#080912] border border-white/10 focus:border-orange-500 outline-none transition text-white placeholder-slate-500" placeholder="https://my-app.workers.dev">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs uppercase tracking-wider text-slate-300 mb-1.5 font-bold font-mono">Video Demo Walkthrough URL (Loom / YouTube / Drive)</label>
+                                    <input type="url" id="projVideoUrl" class="w-full px-4 py-3 rounded-xl text-xs sm:text-sm font-mono bg-[#080912] border border-white/10 focus:border-orange-500 outline-none transition text-white placeholder-slate-500" placeholder="https://loom.com/share/...">
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase tracking-wider text-slate-300 mb-1.5 font-bold font-mono">Primary Tech Stack & APIs</label>
+                                    <input type="text" id="projTechStack" class="w-full px-4 py-3 rounded-xl text-xs sm:text-sm bg-[#080912] border border-white/10 focus:border-orange-500 outline-none transition text-white placeholder-slate-500" placeholder="e.g. Gemini 1.5, Cloudflare Workers, Firestore, Tailwind, GSAP">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-slate-300 mb-1.5 font-bold font-mono">Architecture Summary & Key Innovations</label>
+                                <textarea id="projSummary" rows="4" class="w-full p-4 rounded-xl text-xs sm:text-sm bg-[#080912] border border-white/10 focus:border-orange-500 outline-none transition text-white placeholder-slate-500" placeholder="Describe the problem your application solves, its agent architecture, and any custom tools implemented..."></textarea>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+                                <div class="text-xs text-slate-400 flex items-center gap-2">
+                                    <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+                                    <span>Graded directly by senior engineering evaluators.</span>
+                                </div>
+                                <button type="submit" id="projSubmitBtn" class="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-8 py-3.5 rounded-full font-bold transition shadow-lg shadow-orange-500/25 text-xs sm:text-sm active:scale-95 flex items-center justify-center gap-2">
+                                    <span>Submit Final Capstone</span> <i class="fa-solid fa-paper-plane text-xs"></i>
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -2258,6 +2365,81 @@
 
         window.app = {
 
+            // --- PROFILE PHOTO UPLOAD HANDLER ---
+            handleProfilePhotoUpload: async (event) => {
+                const file = event.target.files && event.target.files[0];
+                if (!file) return;
+
+                if (file.size > 5 * 1024 * 1024) {
+                    return app.toast('Profile photo must be less than 5MB');
+                }
+
+                try {
+                    app.toast('Uploading profile photo...');
+                    const publicUrl = await app.uploadSlipToR2(file);
+                    
+                    if (app.user) {
+                        await updateDoc(doc(db, "users", app.user.uid), {
+                            photoURL: publicUrl
+                        });
+                        if (app.userData) app.userData.photoURL = publicUrl;
+                        app.updateAvatarImages(publicUrl);
+                        app.toast('Profile photo updated successfully!');
+                    }
+                } catch(e) {
+                    console.error("Photo upload error:", e);
+                    app.toast('Photo upload failed: ' + e.message);
+                }
+            },
+
+            updateAvatarImages: (photoUrl) => {
+                if (!photoUrl) return;
+                const avatarEls = ['topNavAvatar', 'dashAvatar', 'drawerAvatar', 'profileBigAvatar'];
+                avatarEls.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.innerHTML = `<img src="${photoUrl}" alt="Avatar" class="w-full h-full object-cover rounded-full">`;
+                    }
+                });
+            },
+
+            // --- 90% COURSE PROGRESS GATEKEEPER LOCKS ---
+            checkProgressLocks: () => {
+                const total = (app.lessonsList && app.lessonsList.length > 0) ? app.lessonsList.length : 0;
+                const completedCount = app.completedLessons ? app.completedLessons.filter(day => app.lessonsList && app.lessonsList.some(l => l.day === day)).length : 0;
+                const prog = total > 0 ? Math.min(Math.round((completedCount / total) * 100), 100) : 0;
+                const isUnlocked = prog >= 90 || (app.userData && app.userData.role === 'admin');
+
+                // Desktop Sidebar Links
+                const navProjects = document.getElementById('nav-projects');
+                const navCerts = document.getElementById('nav-certificates');
+
+                // Mobile Drawer Links
+                const drawerProjects = document.querySelector('.dash-link.nav-projects');
+                const drawerCerts = document.querySelector('.dash-link.nav-certificates');
+
+                // Mobile Bottom Nav
+                const mobProjects = document.getElementById('mob-nav-projects');
+
+                if (isUnlocked) {
+                    if (navProjects) navProjects.classList.remove('hidden');
+                    if (navCerts) navCerts.classList.remove('hidden');
+                    if (drawerProjects) drawerProjects.classList.remove('hidden');
+                    if (drawerCerts) drawerCerts.classList.remove('hidden');
+                    if (mobProjects) mobProjects.classList.remove('hidden');
+                } else {
+                    // Hide Projects & Certificates in sidebar until 90% is achieved
+                    if (navProjects) navProjects.classList.add('hidden');
+                    if (navCerts) navCerts.classList.add('hidden');
+                    if (drawerProjects) drawerProjects.classList.add('hidden');
+                    if (drawerCerts) drawerCerts.classList.add('hidden');
+                    if (mobProjects) mobProjects.classList.add('hidden');
+                }
+
+                return { prog, isUnlocked };
+            },
+
+
             currentRegStep: 1,
 
             // --- ALL 25 SRI LANKAN DISTRICTS DATA ---
@@ -2885,6 +3067,9 @@
                 if (topNavAvatar) topNavAvatar.innerText = initialChar;
 
                 const drawerAvatar = document.getElementById('drawerAvatar');
+                if (app.userData.photoURL) {
+                    app.updateAvatarImages(app.userData.photoURL);
+                }
                 if (drawerAvatar) drawerAvatar.innerText = initialChar;
                 
                 if (app.userData.completedLessons && Array.isArray(app.userData.completedLessons)) {
@@ -2911,6 +3096,7 @@
                 await app.fetchLessonsData();
                 await app.calcCourseProgress();
                 app.updateResumeCard();
+                app.checkProgressLocks();
 
                 // Initialize Sidebar Collapsed State from LocalStorage
                 const savedCollapsed = localStorage.getItem('questra_sidebar_collapsed') === 'true';
@@ -2963,8 +3149,57 @@
                 if(viewId === 'lessons') app.loadLessons();
                 if(viewId === 'notes') app.loadNotes();
                 if(viewId === 'quizzes') app.loadStudentQuizzes();
-                if(viewId === 'projects') app.loadStudentProjects();
-                if(viewId === 'certificates') app.loadStudentCerts();
+                if(viewId === 'projects') {
+                    const { isUnlocked, prog } = app.checkProgressLocks();
+                    if (!isUnlocked) {
+                        const targetView = document.getElementById('view-projects');
+                        if (targetView) {
+                            targetView.innerHTML = `
+                                <div class="text-center p-12 bg-[#0d0f1a] rounded-[2.5rem] border border-white/[0.08] shadow-2xl max-w-xl mx-auto my-12 space-y-4">
+                                    <div class="w-16 h-16 rounded-3xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-3xl mx-auto">
+                                        <i class="fa-solid fa-lock"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold font-heading text-white">Capstone Studio Locked</h3>
+                                    <p class="text-slate-300 text-sm leading-relaxed">
+                                        You have currently completed <strong class="text-orange-400">${prog}%</strong> of the curriculum. The Final Capstone Project submission unlocks automatically once you complete <strong class="text-emerald-400">90% or more</strong> of your masterclass recordings.
+                                    </p>
+                                    <div class="w-full bg-[#141624] h-2 rounded-full overflow-hidden my-4">
+                                        <div class="bg-gradient-to-r from-orange-500 to-amber-400 h-full transition-all" style="width: ${prog}%"></div>
+                                    </div>
+                                    <button onclick="app.dashView('lessons')" class="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-6 py-3 rounded-full text-xs font-bold transition shadow-lg shadow-orange-500/20">
+                                        Resume Classroom Lessons &rarr;
+                                    </button>
+                                </div>
+                            `;
+                        }
+                        return;
+                    }
+                    app.loadStudentProjects();
+                }
+                if(viewId === 'certificates') {
+                    const { isUnlocked, prog } = app.checkProgressLocks();
+                    if (!isUnlocked) {
+                        const targetView = document.getElementById('view-certificates');
+                        if (targetView) {
+                            targetView.innerHTML = `
+                                <div class="text-center p-12 bg-[#0d0f1a] rounded-[2.5rem] border border-white/[0.08] shadow-2xl max-w-xl mx-auto my-12 space-y-4">
+                                    <div class="w-16 h-16 rounded-3xl bg-orange-500/10 text-orange-400 border border-orange-500/20 flex items-center justify-center text-3xl mx-auto">
+                                        <i class="fa-solid fa-award"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold font-heading text-white">Certificates Milestone</h3>
+                                    <p class="text-slate-300 text-sm leading-relaxed">
+                                        Official verified Questra Credentials require <strong class="text-emerald-400">90%+ Curriculum Mastery</strong> and an approved Capstone project.
+                                    </p>
+                                    <button onclick="app.dashView('lessons')" class="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-6 py-3 rounded-full text-xs font-bold transition shadow-lg shadow-orange-500/20">
+                                        Continue Learning &rarr;
+                                    </button>
+                                </div>
+                            `;
+                        }
+                        return;
+                    }
+                    app.loadStudentCerts();
+                }
                 if(viewId === 'profile') app.loadProfile();
             },
 
@@ -3061,15 +3296,10 @@
                 }
 
                 const filterLower = filterText.toLowerCase().trim();
-
-                // Group lessons into our 7 Masterclass Modules
                 let html = '';
 
                 masterclassModules.forEach((mod) => {
-                    // Find all lessons belonging to this module's days
                     const modLessons = app.lessonsList.filter(l => mod.days.includes(l.day));
-                    
-                    // Filter matching
                     const filteredModLessons = modLessons.filter(l => 
                         !filterLower ||
                         l.title.toLowerCase().includes(filterLower) ||
@@ -3085,62 +3315,61 @@
                     const completedInModule = modLessons.filter(l => app.completedLessons.includes(l.day)).length;
                     const isModuleComplete = totalInModule > 0 && completedInModule === totalInModule;
 
-                    // Check if current playing lesson belongs to this module
                     const isCurrentModule = app.lessonsList[app.currentLessonIndex] && mod.days.includes(app.lessonsList[app.currentLessonIndex].day);
                     const isAccordionOpen = isCurrentModule || filterLower !== '' || mod.id === 1;
 
                     html += `
-                        <div class="border border-white/[0.08]/90 rounded-2xl bg-[#0d0f1a] overflow-hidden shadow-2xs transition-all duration-200 mb-3 group/mod">
+                        <div class="rounded-2xl bg-[#0c0e1a] border border-white/[0.06] overflow-hidden transition-all duration-200 mb-2.5">
                             <!-- Module Accordion Header -->
-                            <button type="button" onclick="app.toggleModuleAccordion(${mod.id})" class="w-full p-3.5 bg-gradient-to-r ${isCurrentModule ? 'from-orange-50/80 via-white to-orange-50/30 border-b border-orange-200/80' : 'from-slate-50/90 to-white hover:bg-[#141624]/70 border-b border-white/[0.06]'} flex items-center justify-between gap-3 text-left transition select-none" id="mod-head-${mod.id}">
+                            <button type="button" onclick="app.toggleModuleAccordion(${mod.id})" class="w-full p-3 bg-[#111424] hover:bg-[#161a30] flex items-center justify-between gap-3 text-left transition select-none ${isCurrentModule ? 'ring-1 ring-orange-500/30 bg-gradient-to-r from-orange-500/10 via-[#111424] to-transparent' : ''}" id="mod-head-${mod.id}">
                                 <div class="flex items-center gap-2.5 min-w-0">
-                                    <div class="w-8 h-8 rounded-xl flex items-center justify-center text-xs font-mono font-bold shrink-0 ${isModuleComplete ? 'bg-emerald-500 text-white shadow-xs' : (isCurrentModule ? 'bg-orange-500 text-white shadow-xs' : 'bg-[#0b0d18] text-white')}">
+                                    <div class="w-7 h-7 rounded-xl flex items-center justify-center text-xs font-mono font-bold shrink-0 ${isModuleComplete ? 'bg-emerald-500 text-white shadow-xs' : (isCurrentModule ? 'bg-orange-500 text-white shadow-xs' : 'bg-white/10 text-slate-200')}">
                                         ${mod.number}
                                     </div>
                                     <div class="min-w-0">
                                         <div class="flex items-center gap-1.5 flex-wrap">
-                                            <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${isCurrentModule ? 'bg-orange-100 text-orange-800' : 'bg-[#141624] text-slate-300'}">${mod.badge}</span>
-                                            ${isModuleComplete ? '<span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200"><i class="fa-solid fa-check"></i> Mastered</span>' : ''}
+                                            <span class="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${isCurrentModule ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30' : 'bg-white/5 text-slate-400'}">${mod.badge}</span>
+                                            ${isModuleComplete ? '<span class="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20"><i class="fa-solid fa-check"></i> Mastered</span>' : ''}
                                         </div>
-                                        <h5 class="text-xs sm:text-sm font-bold text-white truncate mt-0.5 ${isCurrentModule ? 'text-orange-600' : ''}">${mod.title}</h5>
+                                        <h5 class="text-xs font-bold text-white truncate mt-0.5 ${isCurrentModule ? 'text-orange-400' : ''}">${mod.title}</h5>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-2 shrink-0">
-                                    <span class="text-[10px] font-mono font-bold text-slate-500 hidden sm:inline">${completedInModule}/${totalInModule}</span>
-                                    <div id="mod-arrow-${mod.id}" class="w-6 h-6 rounded-lg bg-[#0d0f1a] border border-white/[0.08] flex items-center justify-center text-slate-400 transition-transform duration-200 ${isAccordionOpen ? 'rotate-180' : ''}">
-                                        <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                                    <span class="text-[10px] font-mono font-bold text-slate-400 hidden sm:inline">${completedInModule}/${totalInModule}</span>
+                                    <div id="mod-arrow-${mod.id}" class="w-5 h-5 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 transition-transform duration-200 ${isAccordionOpen ? 'rotate-180' : ''}">
+                                        <i class="fa-solid fa-chevron-down text-[9px]"></i>
                                     </div>
                                 </div>
                             </button>
 
                             <!-- Module Lessons List Body -->
-                            <div id="mod-body-${mod.id}" class="${isAccordionOpen ? '' : 'hidden'} p-2.5 space-y-2 bg-[#080912]/50">
+                            <div id="mod-body-${mod.id}" class="${isAccordionOpen ? '' : 'hidden'} p-2 space-y-1.5 bg-[#080912]">
                                 ${lessonsToRender.length === 0 ? `
-                                    <div class="text-center py-4 text-xs text-slate-400">Lessons being prepared for this module.</div>
+                                    <div class="text-center py-3 text-xs text-slate-500 font-medium">Lessons being prepared for this module.</div>
                                 ` : lessonsToRender.map(l => {
                                     const index = app.lessonsList.findIndex(x => x.day === l.day);
                                     const isCompleted = app.completedLessons.includes(l.day);
                                     const isCurrent = app.currentLessonIndex === index;
 
                                     let statusBadge = isCompleted 
-                                        ? '<span class="text-emerald-700 text-[10px] bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-bold flex items-center gap-1"><i class="fa-solid fa-check"></i> Done</span>'
+                                        ? '<span class="text-emerald-400 text-[10px] bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full font-bold flex items-center gap-1 font-mono"><i class="fa-solid fa-check"></i> Done</span>'
                                         : (isCurrent 
-                                            ? '<span class="text-orange-700 text-[10px] bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full font-bold flex items-center gap-1 animate-pulse"><i class="fa-solid fa-play text-[8px]"></i> Playing</span>'
+                                            ? '<span class="text-orange-400 text-[10px] bg-orange-500/10 border border-orange-500/30 px-2 py-0.5 rounded-full font-bold flex items-center gap-1 font-mono animate-pulse"><i class="fa-solid fa-play text-[7px]"></i> Playing</span>'
                                             : `<span class="text-slate-400 text-[10px] font-mono font-medium">${l.duration || '45 Mins'}</span>`);
 
                                     let cardClass = isCurrent 
-                                        ? 'border-orange-500 bg-orange-50/60 shadow-xs ring-1 ring-orange-500/20' 
-                                        : (isCompleted ? 'border-white/[0.08] bg-[#0d0f1a] hover:border-white/15' : 'border-white/[0.08] bg-[#0d0f1a] hover:border-white/15 hover:shadow-2xs');
+                                        ? 'border-orange-500/50 bg-[#161a2e] shadow-lg shadow-orange-500/5 ring-1 ring-orange-500/30' 
+                                        : (isCompleted ? 'border-white/[0.04] bg-[#0c0e18] hover:border-white/10' : 'border-white/[0.04] bg-[#0c0e18] hover:border-white/10');
 
                                     return `
-                                        <div onclick="app.playLesson(${index})" class="p-2.5 rounded-xl border transition-all cursor-pointer group flex items-center justify-between gap-3 ${cardClass}">
+                                        <div onclick="app.playLesson(${index})" class="p-2.5 rounded-xl border transition-all cursor-pointer group flex items-center justify-between gap-2.5 ${cardClass}">
                                             <div class="flex items-center gap-2.5 overflow-hidden">
-                                                <div class="w-6 h-6 rounded-lg flex items-center justify-center text-[11px] font-mono font-bold shrink-0 ${isCurrent ? 'bg-orange-500 text-white' : (isCompleted ? 'bg-emerald-500 text-white' : 'bg-[#141624] text-slate-300')}">
+                                                <div class="w-6 h-6 rounded-lg flex items-center justify-center text-[10px] font-mono font-bold shrink-0 ${isCurrent ? 'bg-orange-500 text-white' : (isCompleted ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-white/5 text-slate-400')}">
                                                     ${l.day < 10 ? '0' + l.day : l.day}
                                                 </div>
                                                 <div class="overflow-hidden min-w-0">
-                                                    <h6 class="text-xs font-bold truncate ${isCurrent ? 'text-orange-600' : 'text-slate-100 group-hover:text-orange-600 transition'}">${l.title}</h6>
-                                                    <p class="text-[10px] text-slate-400 truncate">${l.type || 'Masterclass'} • ${l.duration || '45 Mins'}</p>
+                                                    <h6 class="text-xs font-bold truncate ${isCurrent ? 'text-orange-400' : 'text-slate-200 group-hover:text-orange-400 transition'}">${l.title}</h6>
+                                                    <p class="text-[10px] text-slate-400 truncate font-mono">${l.type || 'Masterclass'} • ${l.duration || '45 Mins'}</p>
                                                 </div>
                                             </div>
                                             <div class="shrink-0">
@@ -3156,7 +3385,6 @@
 
                 container.innerHTML = html;
             },
-
             toggleModuleAccordion: (modId) => {
                 const body = document.getElementById(`mod-body-${modId}`);
                 const arrow = document.getElementById(`mod-arrow-${modId}`);
